@@ -88,4 +88,79 @@ def get_schedule():
             "custom": "custom/" in script,
         })
 
+    # Also load custom routines from config/routines.yaml
+    _load_yaml_routines(entries)
+
     return jsonify(entries)
+
+
+def _load_yaml_routines(entries: list):
+    """Load custom routines from config/routines.yaml."""
+    import yaml
+    config_path = WORKSPACE / "config" / "routines.yaml"
+    if not config_path.exists():
+        return
+
+    try:
+        with open(config_path) as f:
+            config = yaml.safe_load(f)
+        if not config:
+            return
+
+        for r in config.get("daily", []) or []:
+            if not r.get("enabled", True):
+                continue
+            script = r.get("script", "")
+            script_key = script.replace(".py", "")
+            agent = SCRIPT_AGENTS.get(script_key, "")
+            if r.get("interval"):
+                sched = f"every {r['interval']} min"
+            else:
+                sched = f"daily @ {r.get('time', '?')}"
+            entries.append({
+                "name": r.get("name", script),
+                "script": f"custom/{script}",
+                "schedule": sched,
+                "frequency": "daily",
+                "time": r.get("time", ""),
+                "agent": agent,
+                "custom": True,
+            })
+
+        for r in config.get("weekly", []) or []:
+            if not r.get("enabled", True):
+                continue
+            script = r.get("script", "")
+            script_key = script.replace(".py", "")
+            agent = SCRIPT_AGENTS.get(script_key, "")
+            days = r.get("days", [r.get("day", "friday")])
+            time_str = r.get("time", "09:00")
+            for d in days:
+                entries.append({
+                    "name": r.get("name", script),
+                    "script": f"custom/{script}",
+                    "schedule": f"{d.capitalize()} @ {time_str}",
+                    "frequency": "weekly",
+                    "time": time_str,
+                    "agent": agent,
+                    "custom": True,
+                })
+
+        for r in config.get("monthly", []) or []:
+            if not r.get("enabled", True):
+                continue
+            script = r.get("script", "")
+            script_key = script.replace(".py", "")
+            agent = SCRIPT_AGENTS.get(script_key, "")
+            entries.append({
+                "name": r.get("name", script),
+                "script": f"custom/{script}",
+                "schedule": f"Day {r.get('day', 1)} @ {r.get('time', '08:00')}",
+                "frequency": "monthly",
+                "time": r.get("time", ""),
+                "agent": agent,
+                "custom": True,
+            })
+
+    except Exception:
+        pass
