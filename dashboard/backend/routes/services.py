@@ -54,12 +54,12 @@ ROUTINE_SCRIPTS = {
     "review": "custom/review_todoist.py", "memory": "memory_sync.py", "eod": "end_of_day.py",
     "dashboard": "custom/dashboard.py", "fin-pulse": "custom/financial_pulse.py", "youtube": "custom/youtube_report.py",
     "instagram": "custom/instagram_report.py", "linkedin": "custom/linkedin_report.py", "social": "custom/social_analytics.py",
-    "licensing": "licensing_daily.py", "weekly": "weekly_review.py", "health": "custom/health_checkin.py",
+    "licensing": "custom/licensing_daily.py", "weekly": "weekly_review.py", "health": "custom/health_checkin.py",
     "trends": "custom/trends.py", "linear": "custom/linear_review.py", "community": "custom/community_daily.py",
     "community-week": "custom/community_weekly.py", "community-month": "custom/community_monthly.py",
     "github": "custom/github_review.py", "faq": "custom/faq_sync.py", "strategy": "custom/strategy_digest.py",
-    "fin-weekly": "custom/financial_weekly.py", "licensing-weekly": "licensing_weekly.py",
-    "fin-close": "custom/monthly_close.py", "licensing-month": "licensing_monthly.py",
+    "fin-weekly": "custom/financial_weekly.py", "licensing-weekly": "custom/licensing_weekly.py",
+    "fin-close": "custom/monthly_close.py", "licensing-month": "custom/licensing_monthly.py",
 }
 
 

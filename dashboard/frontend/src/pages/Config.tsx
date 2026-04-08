@@ -7,7 +7,6 @@ const TABS = [
   { key: 'env', label: '.env', format: 'env' },
   { key: 'claude-md', label: 'CLAUDE.md', format: 'md' },
   { key: 'routines', label: 'ROUTINES.md', format: 'md' },
-  { key: 'roadmap', label: 'ROADMAP.md', format: 'md' },
   { key: 'makefile', label: 'Makefile', format: 'json' },
   { key: 'commands', label: 'Commands', format: 'json' },
 ]

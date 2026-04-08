@@ -77,7 +77,7 @@ def setup_schedule():
     schedule.every().day.at("21:00").do(run_adw, "End of Day", "end_of_day.py")
     schedule.every().day.at("21:15").do(run_adw, "Memory Sync", "memory_sync.py")
     schedule.every().day.at("18:00").do(run_adw, "Social Analytics Daily", "custom/social_analytics.py")
-    schedule.every().day.at("18:30").do(run_adw, "Licensing Daily", "licensing_daily.py")
+    schedule.every().day.at("18:30").do(run_adw, "Licensing Daily", "custom/licensing_daily.py")
     schedule.every().day.at("19:00").do(run_adw, "Financial Pulse", "custom/financial_pulse.py")
     schedule.every().day.at("21:30").do(run_adw, "Dashboard Consolidado", "custom/dashboard.py")
 
@@ -93,7 +93,7 @@ def setup_schedule():
     schedule.every().friday.at("09:15").do(run_adw, "GitHub Review", "custom/github_review.py")
     schedule.every().monday.at("09:30").do(run_adw, "Community Weekly", "custom/community_weekly.py")
     schedule.every().friday.at("07:30").do(run_adw, "Financial Weekly", "custom/financial_weekly.py")
-    schedule.every().friday.at("07:45").do(run_adw, "Licensing Weekly", "licensing_weekly.py")
+    schedule.every().friday.at("07:45").do(run_adw, "Licensing Weekly", "custom/licensing_weekly.py")
     schedule.every().friday.at("08:15").do(run_adw, "Social Analytics Weekly", "custom/social_analytics.py")
     schedule.every().sunday.at("10:00").do(run_adw, "Health Check-in", "custom/health_checkin.py")
 
@@ -155,7 +155,7 @@ def main():
         if now.day == 1 and now.hour == 8 and not monthly_close_ran:
             run_adw("Monthly Close Kickoff", "custom/monthly_close.py")
             run_adw("Community Monthly", "custom/community_monthly.py")
-            run_adw("Licensing Monthly", "licensing_monthly.py")
+            run_adw("Licensing Monthly", "custom/licensing_monthly.py")
             run_adw("Social Analytics Monthly", "custom/social_analytics.py")
             monthly_close_ran = True
         elif now.day != 1:

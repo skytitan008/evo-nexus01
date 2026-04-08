@@ -60,7 +60,7 @@ social:             ## 📊 Social Analytics — consolidated cross-platform rep
 	$(PYTHON) $(ADW_DIR)/custom/social_analytics.py
 
 licensing:          ## 📊 Licensing Daily — daily open source growth (@atlas)
-	$(PYTHON) $(ADW_DIR)/licensing_daily.py
+	$(PYTHON) $(ADW_DIR)/custom/licensing_daily.py
 
 # --- Weekly financial routines ---
 
@@ -68,7 +68,7 @@ fin-weekly:         ## 📊 Financial Weekly — weekly financial report (@flux)
 	$(PYTHON) $(ADW_DIR)/custom/financial_weekly.py
 
 licensing-weekly:   ## 📊 Licensing Weekly — weekly open source growth (@atlas)
-	$(PYTHON) $(ADW_DIR)/licensing_weekly.py
+	$(PYTHON) $(ADW_DIR)/custom/licensing_weekly.py
 
 # --- Monthly routines ---
 
@@ -79,7 +79,7 @@ community-month:    ## 📊 Community Monthly — monthly community report (@pul
 	$(PYTHON) $(ADW_DIR)/custom/community_monthly.py
 
 licensing-month:    ## 📊 Licensing Monthly — monthly open source growth (@atlas)
-	$(PYTHON) $(ADW_DIR)/licensing_monthly.py
+	$(PYTHON) $(ADW_DIR)/custom/licensing_monthly.py
 
 # --- Weekly routines ---
 

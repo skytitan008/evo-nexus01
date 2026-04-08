@@ -6,7 +6,6 @@
 
 # ── Secrets & credentials ─────────────────
 .env
-.claude/.env
 
 # EN folder names (new standard)
 workspace/daily-logs/*
