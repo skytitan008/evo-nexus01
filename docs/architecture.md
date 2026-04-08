@@ -64,13 +64,13 @@ Skills are domain-specific instructions that teach Claude how to perform specifi
 
 > **Note:** `evo-` skills (Evo Method) were removed from this repo and are now maintained in the separate [EVO-METHOD](https://github.com/EvolutionAPI/EVO-METHOD) project. They are gitignored if present locally.
 
-### Routines (`ADWs/rotinas/` and `ADWs/rotinas/custom/`)
+### Routines (`ADWs/routines/` and `ADWs/routines/custom/`)
 
 Automated workflows that run on a schedule. Each routine is a Python script that invokes Claude Code CLI with a specific agent and skill.
 
 Routines are split into two tiers:
-- **Core** (`ADWs/rotinas/`) — 4 routines shipped with the repo (morning, eod, dashboard, review, triage, sync, memory).
-- **Custom** (`ADWs/rotinas/custom/`) — ~20 user-created routines (gitignored). These are workspace-specific (community, finance, social, licensing, etc.).
+- **Core** (`ADWs/routines/`) — 4 routines shipped with the repo (morning, eod, dashboard, review, triage, sync, memory).
+- **Custom** (`ADWs/routines/custom/`) — ~20 user-created routines (gitignored). These are workspace-specific (community, finance, social, licensing, etc.).
 
 **Runner** (`ADWs/runner.py`) — The execution engine that:
 - Invokes Claude Code CLI with `--output-format json`

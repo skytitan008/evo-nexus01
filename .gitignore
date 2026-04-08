@@ -42,7 +42,7 @@ memory/
 .claude/templates/html/custom/
 
 # ── Custom routines (user-specific, all in one place) ─
-ADWs/rotinas/custom/
+ADWs/routines/custom/
 
 # ── Runtime data & logs ───────────────────
 ADWs/logs/

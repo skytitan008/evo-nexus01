@@ -9,7 +9,7 @@ Guide the user through creating a new automated routine that runs on schedule vi
 
 ## What You're Building
 
-A routine is a Python script in `ADWs/rotinas/custom/` that:
+A routine is a Python script in `ADWs/routines/custom/` that:
 1. Invokes Claude Code CLI with a specific agent and skill
 2. Generates an output (HTML report, markdown file, or action)
 3. Runs on a schedule (daily, weekly, monthly, or interval)
@@ -34,7 +34,7 @@ Ask the user:
 
 ## Step 2: Generate the Script
 
-Create the routine script at `ADWs/rotinas/custom/{name}.py`:
+Create the routine script at `ADWs/routines/custom/{name}.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -136,7 +136,7 @@ Prompt: "Analyze all social media posts from this week. Identify top performers,
 
 ## Important Notes
 
-- Custom routines go in `ADWs/rotinas/custom/` (gitignored — they're personal to your workspace)
-- Core routines in `ADWs/rotinas/` are shipped with the repo and should not be modified
+- Custom routines go in `ADWs/routines/custom/` (gitignored — they're personal to your workspace)
+- Core routines in `ADWs/routines/` are shipped with the repo and should not be modified
 - The `runner.py` handles logging, metrics, and Telegram notifications automatically
 - Restart the scheduler after adding new routines: stop and `make scheduler`

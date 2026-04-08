@@ -77,7 +77,7 @@ Se existirem relatórios anteriores em `workspace/community/reports/weekly/`, co
 
 ### Step 7 — Generate HTML report
 
-Read the template at `.claude/templates/html/community-weekly-report.html`.
+Read the template at `.claude/templates/html/custom/community-weekly-report.html`.
 
 Replace the placeholders `{{...}}` with the actual data.
 

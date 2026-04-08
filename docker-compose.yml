@@ -52,7 +52,7 @@ services:
     tty: true
 
   # Runner on-demand — to execute routines manually
-  # Usage: docker compose run --rm runner ADWs/rotinas/good_morning.py
+  # Usage: docker compose run --rm runner ADWs/routines/good_morning.py
   runner:
     build: .
     container_name: openclaude-runner

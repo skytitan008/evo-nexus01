@@ -253,8 +253,8 @@ open-claude/
 │   └── templates/html/  — 2 core + custom HTML templates
 ├── ADWs/
 │   ├── runner.py        — execution engine (logs + metrics + notifications)
-│   ├── rotinas/         — 7 core routine scripts (shipped with repo)
-│   └── rotinas/custom/  — 20 custom routines (user-created, gitignored)
+│   ├── routines/         — 7 core routine scripts (shipped with repo)
+│   └── routines/custom/  — 20 custom routines (user-created, gitignored)
 ├── dashboard/
 │   ├── backend/         — Flask + SQLAlchemy + WebSocket
 │   └── frontend/        — React + TypeScript + Tailwind

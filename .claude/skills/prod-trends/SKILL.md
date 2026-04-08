@@ -90,7 +90,7 @@ Analyze as últimas semanas (quantas tiver) e identificar:
 
 ### Step 5 — Generate HTML report
 
-Read the template at `.claude/templates/html/trends-report.html`.
+Read the template at `.claude/templates/html/custom/trends-report.html`.
 Replace the placeholders `{{...}}` with the actual data.
 
 Classificação do health geral:

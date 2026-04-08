@@ -56,7 +56,7 @@ A partir das mensagens coletadas, calcular:
 
 ### Step 3 — Generate HTML report
 
-Read the template at `.claude/templates/html/community-daily-pulse.html`.
+Read the template at `.claude/templates/html/custom/community-daily-pulse.html`.
 
 Replace the placeholders `{{...}}` with the actual collected data.
 

@@ -76,7 +76,7 @@ If there are no alerts: "No financial alerts at this time."
 
 ## Step 6 — Generate HTML
 
-Read the template at `.claude/templates/html/financial-pulse.html` and replace ALL `{{PLACEHOLDER}}` with the collected data.
+Read the template at `.claude/templates/html/custom/financial-pulse.html` and replace ALL `{{PLACEHOLDER}}` with the collected data.
 
 For transactions (dynamic table):
 ```html

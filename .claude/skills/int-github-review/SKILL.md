@@ -85,7 +85,7 @@ Present in the format:
 
 ### Step 4 — Generate HTML report
 
-Read the template at `.claude/templates/html/github-review.html`.
+Read the template at `.claude/templates/html/custom/github-review.html`.
 
 Replace the `{{...}}` placeholders with the actual collected data.
 

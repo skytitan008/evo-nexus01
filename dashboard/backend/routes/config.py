@@ -35,8 +35,8 @@ def get_routines_md():
 
 
 # Legacy route alias
-@bp.route("/api/config/rotinas")
-def get_rotinas_legacy():
+@bp.route("/api/config/routines")
+def get_routines_legacy():
     return get_routines_md()
 
 

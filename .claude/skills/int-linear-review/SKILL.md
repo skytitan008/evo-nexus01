@@ -83,7 +83,7 @@ Present in the format:
 
 ### Step 4 — Save HTML artifact
 
-Read the template at `.claude/templates/html/linear-review.html`, fill all `{{PLACEHOLDER}}` with the data collected in previous steps, and save the complete HTML to `workspace/projects/linear-reviews/[C] YYYY-MM-DD-linear-review.html`.
+Read the template at `.claude/templates/html/custom/linear-review.html`, fill all `{{PLACEHOLDER}}` with the data collected in previous steps, and save the complete HTML to `workspace/projects/linear-reviews/[C] YYYY-MM-DD-linear-review.html`.
 
 Create the directory `workspace/projects/linear-reviews/` if it does not exist.
 

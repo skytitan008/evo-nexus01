@@ -45,7 +45,7 @@ Cruzar os dados e responder:
 
 ### Step 3 — Generate digest (HTML + MD)
 
-**HTML:** Read the template at `.claude/templates/html/strategy-digest.html`, preencher todos os `{{PLACEHOLDER}}` com os dados coletados e salvar em `workspace/strategy/digests/[C] YYYY-WXX-strategy-digest.html`. Create the directory if it does not exist.
+**HTML:** Read the template at `.claude/templates/html/custom/strategy-digest.html`, preencher todos os `{{PLACEHOLDER}}` com os dados coletados e salvar em `workspace/strategy/digests/[C] YYYY-WXX-strategy-digest.html`. Create the directory if it does not exist.
 
 **MD:** Também salvar versão markdown em `workspace/strategy/digests/[C] YYYY-WXX-strategy-digest.md` com o seguinte formato:
 

@@ -94,7 +94,7 @@ Health badge (CSS class):
 
 ## Step 9 — Generate HTML
 
-Read the template at `.claude/templates/html/financial-weekly.html` and replace ALL `{{PLACEHOLDER}}`.
+Read the template at `.claude/templates/html/custom/financial-weekly.html` and replace ALL `{{PLACEHOLDER}}`.
 
 For dynamic revenue/expense tables:
 ```html

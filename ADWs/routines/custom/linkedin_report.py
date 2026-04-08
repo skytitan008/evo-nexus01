@@ -2,7 +2,7 @@
 """ADW: LinkedIn Report — Analytics via Pixel"""
 
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from runner import run_skill, banner, summary
 
 def main():

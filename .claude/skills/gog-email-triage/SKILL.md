@@ -148,7 +148,7 @@ Output in this format:
 
 ### Step 4: Save HTML Artifact
 
-Read the template at `.claude/templates/html/email-triage.html`, fill all `{{PLACEHOLDER}}` values with the data from Step 3 (email counts, priority groups, suggested actions), and save the completed HTML to `workspace/daily-logs/[C] YYYY-MM-DD-email-triage.html`.
+Read the template at `.claude/templates/html/custom/email-triage.html`, fill all `{{PLACEHOLDER}}` values with the data from Step 3 (email counts, priority groups, suggested actions), and save the completed HTML to `workspace/daily-logs/[C] YYYY-MM-DD-email-triage.html`.
 
 Create the `workspace/daily-logs/` directory if it does not exist.
 

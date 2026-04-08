@@ -111,7 +111,7 @@ Para cada semana do mês:
 
 ### Step 12 — Generate HTML report
 
-Read the template at `.claude/templates/html/community-monthly-report.html` e substituir TODOS os `{{PLACEHOLDER}}`.
+Read the template at `.claude/templates/html/custom/community-monthly-report.html` e substituir TODOS os `{{PLACEHOLDER}}`.
 
 Para rows dinâmicas, usar o padrão das outras skills pulse:
 

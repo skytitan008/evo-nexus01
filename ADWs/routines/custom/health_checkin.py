@@ -2,7 +2,7 @@
 """ADW: Health Check-in — Weekly health check-in via Kai"""
 
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from runner import run_claude, banner, summary
 
 PROMPT = """Run the weekly health check-in:
@@ -18,7 +18,7 @@ PROMPT = """Run the weekly health check-in:
    - Medication (if applicable this week)
 3. Compare with the last check-in and identify trends
 4. Generate a short report with traffic light (green/yellow/red) for each item
-5. Save the check-in as HTML: read the template '.claude/templates/html/health-checkin.html', fill all {{PLACEHOLDER}} with collected data, and save the complete HTML to 'workspace/personal/health-checkins/reports/[C] YYYY-MM-DD-health.html'. Create the directory if it doesn't exist.
+5. Save the check-in as HTML: read the template '.claude/templates/html/custom/health-checkin.html', fill all {{PLACEHOLDER}} with collected data, and save the complete HTML to 'workspace/personal/health-checkins/reports/[C] YYYY-MM-DD-health.html'. Create the directory if it doesn't exist.
 6. Also save the markdown version to 'workspace/personal/health-checkins/reports/YYYY-MM-DD.md'
 7. Update the progress file if there are relevant changes
 

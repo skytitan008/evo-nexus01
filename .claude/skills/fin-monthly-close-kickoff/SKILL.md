@@ -108,7 +108,7 @@ Badge:
 
 ## Step 8 — Generate HTML
 
-Read the template at `.claude/templates/html/monthly-close.html` and replace ALL `{{PLACEHOLDER}}`.
+Read the template at `.claude/templates/html/custom/monthly-close.html` and replace ALL `{{PLACEHOLDER}}`.
 
 For checklist:
 ```html

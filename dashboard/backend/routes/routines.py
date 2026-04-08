@@ -10,7 +10,7 @@ bp = Blueprint("routines", __name__)
 
 METRICS_PATH = WORKSPACE / "ADWs" / "logs" / "metrics.json"
 LOGS_DIR = WORKSPACE / "ADWs" / "logs"
-ROTINAS_DIR = WORKSPACE / "ADWs" / "rotinas"
+ROTINAS_DIR = WORKSPACE / "ADWs" / "routines"
 
 
 @bp.route("/api/routines")

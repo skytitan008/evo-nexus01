@@ -22,7 +22,7 @@ If `my_posts` returns a permission error, inform that approval is needed and use
 
 ### Step 2 — Gerar relatório
 
-Use template `.claude/templates/html/social-analytics-report.html` with available data. Mark sections without data as "Pending — requires LinkedIn Advertising API approval".
+Use template `.claude/templates/html/custom/social-analytics-report.html` with available data. Mark sections without data as "Pending — requires LinkedIn Advertising API approval".
 
 ### Step 3 — Save
 

@@ -76,7 +76,7 @@ def run_routine(routine_id):
     if not script:
         return jsonify({"error": f"Unknown routine: {routine_id}"}), 400
 
-    cmd = f"cd {WORKSPACE_STR} && nohup uv run python ADWs/rotinas/{script} > /dev/null 2>&1 &"
+    cmd = f"cd {WORKSPACE_STR} && nohup uv run python ADWs/routines/{script} > /dev/null 2>&1 &"
     try:
         subprocess.Popen(cmd, shell=True)
         return jsonify({"status": "started", "routine": routine_id, "script": script})

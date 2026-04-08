@@ -36,7 +36,7 @@ Per account:
 
 ### Step 4 — Generate HTML
 
-Use template `.claude/templates/html/social-analytics-report.html` with `{{REPORT_TYPE}}` = "Instagram".
+Use template `.claude/templates/html/custom/social-analytics-report.html` with `{{REPORT_TYPE}}` = "Instagram".
 
 ### Step 5 — Save
 

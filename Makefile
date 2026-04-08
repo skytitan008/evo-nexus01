@@ -13,7 +13,7 @@ setup:              ## 🔧 Interactive setup wizard (prerequisites, config, fol
 
 # ── Routines ───────────────────────────────
 # ============================================================
-ADW_DIR := ADWs/rotinas
+ADW_DIR := ADWs/routines
 
 # Load .env if it exists
 ifneq (,$(wildcard .env))
@@ -177,7 +177,7 @@ docker-logs:        ## 🐳 Container logs
 	docker compose logs -f --tail=50
 
 docker-run:         ## 🐳 Run routine manually (ex: make docker-run ADW=good_morning.py)
-	docker compose run --rm runner ADWs/rotinas/$(ADW)
+	docker compose run --rm runner ADWs/routines/$(ADW)
 
 docker-build:       ## 🐳 Build the image
 	docker compose build

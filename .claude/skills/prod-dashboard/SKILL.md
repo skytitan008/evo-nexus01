@@ -9,7 +9,7 @@ Consolidation routine that reads outputs from other routines and generates a uni
 
 **Always respond in English.**
 
-**IMPORTANTE:** Esta rotina NÃO busca dados novos. Ela lê os outputs já gerados pelas outras rotinas do dia/semana e consolida tudo numa view única.
+**IMPORTANTE:** Esta rotina NÃO busca dados novos. Ela lê os outputs já gerados pelas outras routines do dia/semana e consolida tudo numa view única.
 
 ## Step 1 — Collect data das fontes (silenciosamente)
 
@@ -53,7 +53,7 @@ Usar /gog-calendar para listar eventos de hoje.
 Ler `workspace/meetings/summaries/` ou `workspace/meetings/summaries/` — últimas 5 reuniões. Extrair:
 - Data, título, participantes, action items
 
-### 1h. Métricas de rotinas
+### 1h. Métricas de routines
 Ler `ADWs/logs/metrics.json` para status de cada rotina automatizada:
 - Nome, agente, última execução, duração média, taxa de sucesso
 
@@ -75,7 +75,7 @@ Critérios:
 
 ## Step 3 — Gerar dashboard HTML
 
-Read the template at `.claude/templates/html/dashboard-consolidation.html` e substituir TODOS os `{{PLACEHOLDER}}` com os dados coletados.
+Read the template at `.claude/templates/html/custom/dashboard-consolidation.html` e substituir TODOS os `{{PLACEHOLDER}}` com os dados coletados.
 
 Para rows dinâmicas (marcadas com `<!-- TEMPLATE -->`), gerar o HTML correto:
 

@@ -84,7 +84,7 @@ Gerar análise com:
 
 ### Step 7 — Generate HTML
 
-Ler template `.claude/templates/html/social-analytics-report.html` e preencher todos os `{{PLACEHOLDER}}`.
+Ler template `.claude/templates/html/custom/social-analytics-report.html` e preencher todos os `{{PLACEHOLDER}}`.
 
 `{{REPORT_TYPE}}` depende da frequência:
 - Diário: "Daily"

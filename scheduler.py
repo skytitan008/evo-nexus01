@@ -31,7 +31,7 @@ console = Console(theme=theme)
 
 WORKSPACE = Path(__file__).parent
 PYTHON = "uv run python"
-ADW_DIR = WORKSPACE / "ADWs" / "rotinas"
+ADW_DIR = WORKSPACE / "ADWs" / "routines"
 
 
 def run_adw(name: str, script: str):

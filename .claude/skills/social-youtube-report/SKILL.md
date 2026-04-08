@@ -53,7 +53,7 @@ Read previous report from `workspace/social/reports/youtube/` if it exists. Calc
 
 ### Step 5 — Generate HTML
 
-Use template `.claude/templates/html/social-analytics-report.html` with `{{REPORT_TYPE}}` = "YouTube Daily/Weekly/Monthly".
+Use template `.claude/templates/html/custom/social-analytics-report.html` with `{{REPORT_TYPE}}` = "YouTube Daily/Weekly/Monthly".
 
 If it is the only configured platform, adapt the template to focus on YouTube (do not show an empty cross-platform comparison table).
 

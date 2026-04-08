@@ -21,7 +21,7 @@ Ler os arquivos de memória recentes de cada agente em `.claude/agent-memory/`:
 - Qualquer outro agente que tenha sido usado
 
 ### 1b. Logs de ADW
-Ler o log JSONL de hoje em `ADWs/logs/YYYY-MM-DD.jsonl` para ver quais rotinas rodaram, duração e status.
+Ler o log JSONL de hoje em `ADWs/logs/YYYY-MM-DD.jsonl` para ver quais routines rodaram, duração e status.
 
 ### 1c. Reuniões do dia
 Verificar `workspace/meetings/summaries/` e `workspace/meetings/fathom/` do dia para reuniões que foram sincronizadas.
