@@ -94,8 +94,8 @@ type: meeting
 status: summary
 tags: [fathom, meeting]
 recording_id: {recording_id}
-recording_url: {url ou share_url}
-people: [{nomes dos calendar_invitees}]
+recording_url: {url or share_url}
+people: [{names from calendar_invitees}]
 ---
 
 {content from default_summary.markdown_formatted}
@@ -177,7 +177,7 @@ When finished, present a short summary:
 **Tasks created:** {T} in Todoist (Evolution project)
 
 ### Synced meetings:
-| Data | Título | Projeto | Tarefas |
+| Date | Title | Project | Tasks |
 |------|--------|---------|---------|
 | ... | ... | ... | {N tasks} |
 ```

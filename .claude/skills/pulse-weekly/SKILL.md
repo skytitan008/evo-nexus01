@@ -13,19 +13,19 @@ Weekly routine that analyzes Discord and WhatsApp activity from the last 7 days 
 
 ### Step 1 — Collect the week's data
 
-Usar a skill `/discord-get-messages` para buscar mensagens dos últimos 7 dias nos canais principais.
+Use the `/discord-get-messages` skill to fetch messages from the last 7 days in the main channels.
 
 Guild ID: `YOUR_GUILD_ID`
 
-Canais a monitorar:
-- Todos os canais de texto da comunidade (chat-pt, chat-en, chat-es, help, feedback, suggestions, showcase, news)
-- Canal de novos membros (`🆕・new-members`)
+Channels to monitor:
+- All community text channels (chat-pt, chat-en, chat-es, help, feedback, suggestions, showcase, news)
+- New members channel (`🆕・new-members`)
 
-Para cada canal, buscar mensagens paginadas (100 por request) até cobrir 7 dias.
+For each channel, fetch paginated messages (100 per request) to cover 7 days.
 
-### Step 1b — Collect WhatsApp data (7 dias)
+### Step 1b — Collect WhatsApp data (7 days)
 
-Usar a skill `/int-whatsapp` para buscar mensagens e stats dos últimos 7 dias:
+Use the `/int-whatsapp` skill to fetch messages and stats from the last 7 days:
 
 ```bash
 python3 {project-root}/.claude/skills/int-whatsapp/scripts/whatsapp_client.py messages_7d
@@ -33,47 +33,47 @@ python3 {project-root}/.claude/skills/int-whatsapp/scripts/whatsapp_client.py st
 python3 {project-root}/.claude/skills/int-whatsapp/scripts/whatsapp_client.py groups --start $(date -u -v-7d '+%Y-%m-%d') --end $(date -u '+%Y-%m-%d')
 ```
 
-Incluir no relatório como seção separada "WhatsApp" com: grupos ativos, total mensagens, participantes únicos, tópicos, perguntas de suporte.
+Include in the report as a separate "WhatsApp" section with: active groups, total messages, unique participants, topics, support questions.
 
 ### Step 2 — Calculate metrics
 
-1. **Crescimento**: total membros (estimativa), novos vs saídas, churn net
-2. **WAM (Weekly Active Members)**: membros únicos que enviaram mensagem
-3. **Communicators**: % dos visitantes que conversam (meta: 50%)
-4. **Taxa de resolução**: perguntas respondidas / total em #help (meta: >80%)
-5. **Tempo de primeira resposta**: mediana do tempo entre pergunta e primeira resposta
-6. **Mensagens por membro ativo**: total msgs / WAM (meta: >4)
+1. **Growth**: total members (estimate), new vs departed, net churn
+2. **WAM (Weekly Active Members)**: unique members who sent a message
+3. **Communicators**: % of visitors who chat (goal: 50%)
+4. **Resolution rate**: answered questions / total in #help (goal: >80%)
+5. **First response time**: median time between question and first response
+6. **Messages per active member**: total msgs / WAM (goal: >4)
 
-### Step 3 — Analyze sentimento e tópicos
+### Step 3 — Analyze sentiment and topics
 
-Para cada dia da semana:
-1. **Sentimento**: classificar mensagens como positivo/neutro/negativo
-2. **Tópicos**: agrupar discussões por tema, contar frequência
+For each day of the week:
+1. **Sentiment**: classify messages as positive/neutral/negative
+2. **Topics**: group discussions by theme, count frequency
 
-Consolidar:
-- Top 5 tópicos com barra de sentimento
-- Sentiment trend ao longo da semana
+Consolidate:
+- Top 5 topics with sentiment bar
+- Sentiment trend throughout the week
 
 ### Step 4 — Identify highlights
 
-1. **Top 5 membros mais ativos**: por volume de mensagens + respostas dadas
-2. **Novos membros que contribuíram**: quem é novo e já participou
-3. **Membros em risco de churn**: previamente ativos, inativos esta semana
+1. **Top 5 most active members**: by message volume + answers given
+2. **New members who contributed**: who is new and already participated
+3. **Members at risk of churn**: previously active, inactive this week
 
 ### Step 5 — Extract product insights
 
-Analyze as mensagens e identificar:
-1. **Features mais solicitadas**: pedidos espontâneos de funcionalidades
-2. **Bugs reportados**: problemas técnicos mencionados
-3. **Docs gap**: perguntas cuja resposta deveria estar na documentação (indicar frequência)
+Analyze messages and identify:
+1. **Most requested features**: spontaneous feature requests
+2. **Reported bugs**: technical problems mentioned
+3. **Docs gap**: questions whose answers should be in the documentation (indicate frequency)
 
 ### Step 6 — Comparison
 
-Se existirem relatórios anteriores em `workspace/community/reports/weekly/`, comparar:
-- WAM esta semana vs anterior
-- Novos membros vs anterior
-- Taxa de resolução vs anterior
-- Tempo de resposta vs anterior
+If previous reports exist in `workspace/community/reports/weekly/`, compare:
+- WAM this week vs previous
+- New members vs previous
+- Resolution rate vs previous
+- Response time vs previous
 
 ### Step 7 — Generate HTML report
 
@@ -83,7 +83,7 @@ Replace the placeholders `{{...}}` with the actual data.
 
 Logo available at: `workspace/projects/Evolution Foundation/Logos finais/Favicon logo/SVG/Favicon Color 500.svg`
 
-Save em:
+Save to:
 ```
 workspace/community/reports/weekly/[C] YYYY-WXX-community-report.html
 ```
@@ -93,15 +93,15 @@ workspace/community/reports/weekly/[C] YYYY-WXX-community-report.html
 Present in the terminal:
 
 ```
-## Report Semanal — Semana {WXX}
+## Weekly Report — Week {WXX}
 
-Membros: {N} ({+/-}) | WAM: {N} ({X}%)
-Resolução: {X}% | 1st response: {X} min
-Sentimento: {label}
-Top: {tópico 1}, {tópico 2}, {tópico 3}
+Members: {N} ({+/-}) | WAM: {N} ({X}%)
+Resolution: {X}% | 1st response: {X} min
+Sentiment: {label}
+Top: {topic 1}, {topic 2}, {topic 3}
 Insights: {N} features, {N} bugs, {N} docs gaps
 
-Report salvo em workspace/community/reports/weekly/
+Report saved to workspace/community/reports/weekly/
 ```
 
 ## Rules
@@ -110,7 +110,7 @@ Report salvo em workspace/community/reports/weekly/
 - **Real data** — metrics based on collected messages, no fabrication
 - **Docs gap is gold** — each question without docs becomes a backlog item
 - **Comparison is fundamental** — always show trend vs previous week
-- **Product insights** — a seção mais valiosa, cuidar bem
+- **Product insights** — the most valuable section, handle with care
 
 
 ### Notify via Telegram

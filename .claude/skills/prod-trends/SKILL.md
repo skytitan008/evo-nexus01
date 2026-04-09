@@ -11,137 +11,137 @@ Routine that compares community, GitHub, and financial metrics week-over-week to
 
 ## Data Sources
 
-### 1. Comunidade (Discord)
-Ler relatórios anteriores em:
-- `workspace/community/reports/daily/` — pulsos diários (HTML)
-- `workspace/community/reports/weekly/` — relatórios semanais (HTML)
+### 1. Community (Discord)
+Read previous reports in:
+- `workspace/community/reports/daily/` — daily pulses (HTML)
+- `workspace/community/reports/weekly/` — weekly reports (HTML)
 
-Extrair do HTML ou gerar a partir dos dados:
-- Mensagens por dia (volume)
-- Membros ativos (WAM)
-- Perguntas sem resposta
-- Sentimento geral
-- Top tópicos recorrentes
+Extract from HTML or generate from data:
+- Messages per day (volume)
+- Active members (WAM)
+- Unanswered questions
+- Overall sentiment
+- Top recurring topics
 
 ### 2. GitHub
-Ler relatórios anteriores em:
+Read previous reports in:
 - `workspace/projects/github-reviews/` — reviews (HTML)
 
-Extrair ou gerar:
-- PRs abertos (tendência: acumulando ou sendo resolvidos?)
-- Issues abertas vs fechadas
-- Stars/forks (crescimento)
-- Commits por semana (atividade do time)
-- Tempo médio de PR aberto
+Extract or generate:
+- Open PRs (trend: accumulating or being resolved?)
+- Open vs closed issues
+- Stars/forks (growth)
+- Commits per week (team activity)
+- Average open PR time
 
-### 3. Financeiro
-Consultar dados via skills:
+### 3. Financial
+Query data via skills:
 - `/int-stripe` — MRR, cobranças, reembolsos, assinaturas ativas
-- `/int-omie` — contas a receber/pagar (se disponível)
+- `/int-omie` — accounts receivable/payable (if available)
 
-Métricas:
+Metrics:
 - MRR (Monthly Recurring Revenue)
-- Cobranças do mês vs mês anterior
-- Reembolsos
-- Assinaturas ativas (crescimento/churn)
+- Monthly charges vs previous month
+- Refunds
+- Active subscriptions (growth/churn)
 
-### 4. Operacional (ADWs)
-Ler métricas do runner:
-- `ADWs/logs/metrics.json` — runs, success rate, avg time por rotina
+### 4. Operational (ADWs)
+Read runner metrics:
+- `ADWs/logs/metrics.json` — runs, success rate, avg time per routine
 
 ## Workflow
 
-### Step 1 — Collect the week's data atual
+### Step 1 — Collect current week's data
 
-Buscar os dados mais recentes de cada fonte (últimos 7 dias).
+Fetch the most recent data from each source (last 7 days).
 
-### Step 2 — Collect the week's data anterior
+### Step 2 — Collect previous week's data
 
-Buscar os dados de 7-14 dias atrás pra comparação. Se não existirem (primeira execução), marcar como "baseline" e pular comparativo.
+Fetch data from 7-14 days ago for comparison. If it does not exist (first run), mark as "baseline" and skip comparison.
 
 ### Step 3 — Calculate trends
 
-Para cada métrica, calcular:
-- Valor atual vs anterior
-- Variação absoluta e percentual
-- Direção: ↑ (subindo), ↓ (descendo), = (estável)
-- Classificação: 🟢 saudável, 🟡 atenção, 🔴 risco
+For each metric, calculate:
+- Current vs previous value
+- Absolute and percentage variance
+- Direction: ↑ (rising), ↓ (falling), = (stable)
+- Classification: 🟢 healthy, 🟡 attention, 🔴 risk
 
-**Critérios de classificação:**
+**Classification criteria:**
 
-| Métrica | 🟢 Saudável | 🟡 Atenção | 🔴 Risco |
+| Metric | 🟢 Healthy | 🟡 Attention | 🔴 Risk |
 |---------|------------|-----------|---------|
-| WAM | estável ou ↑ | queda <10% | queda >10% |
-| Perguntas sem resposta | <5 | 5-10 | >10 |
-| Sentimento | positivo | neutro | negativo |
-| PRs abertos | <10 | 10-20 | >20 acumulando |
-| Issues sem resposta | <5 | 5-15 | >15 |
-| Stars (semanal) | >10 | 5-10 | <5 |
-| MRR | estável ou ↑ | queda <5% | queda >5% |
+| WAM | stable or ↑ | drop <10% | drop >10% |
+| Unanswered questions | <5 | 5-10 | >10 |
+| Sentiment | positive | neutral | negative |
+| Open PRs | <10 | 10-20 | >20 accumulating |
+| Unanswered issues | <5 | 5-15 | >15 |
+| Stars (weekly) | >10 | 5-10 | <5 |
+| MRR | stable or ↑ | drop <5% | drop >5% |
 | Success rate ADWs | >90% | 70-90% | <70% |
 
 ### Step 4 — Detect patterns
 
-Analyze as últimas semanas (quantas tiver) e identificar:
-- **Tendências persistentes** — métrica subindo/descendo por 2+ semanas seguidas
-- **Correlações** — ex: aumento de issues no GitHub + aumento de perguntas no Discord = possível bug
-- **Anomalias** — pico ou queda incomum vs média
-- **Sazonalidade** — padrões que se repetem (ex: segunda tem mais atividade)
+Analyze recent weeks (as many as available) and identify:
+- **Persistent trends** — metric rising/falling for 2+ consecutive weeks
+- **Correlations** — e.g., increase in GitHub issues + increase in Discord questions = possible bug
+- **Anomalies** — unusual spike or drop vs average
+- **Seasonality** — recurring patterns (e.g., Monday has more activity)
 
 ### Step 5 — Generate HTML report
 
 Read the template at `.claude/templates/html/custom/trends-report.html`.
 Replace the placeholders `{{...}}` with the actual data.
 
-Classificação do health geral:
-- Todos 🟢 ou maioria 🟢: `healthy` — "Saudável"
-- Mix de 🟢 e 🟡: `mixed` — "Atenção"
-- Qualquer 🔴: `risk` — "Risco"
+Overall health classification:
+- All 🟢 or mostly 🟢: `healthy` — "Healthy"
+- Mix of 🟢 and 🟡: `mixed` — "Attention"
+- Any 🔴: `risk` — "Risk"
 
-**OBRIGATÓRIO:** Sempre gerar o HTML primeiro. Ler o template, substituir os placeholders, e salvar o arquivo HTML completo. Isso vale inclusive na primeira execução (baseline) — mesmo sem comparativo, preencher o scorecard com os valores atuais e "—" no anterior.
+**REQUIRED:** Always generate the HTML first. Read the template, replace the placeholders, and save the complete HTML file. This applies even on the first run (baseline) — even without comparison, fill the scorecard with current values and "—" for previous.
 
-Save HTML em `workspace/daily-logs/[C] YYYY-WXX-trends.html`.
+Save HTML to `workspace/daily-logs/[C] YYYY-WXX-trends.html`.
 
-Depois, salvar também uma versão markdown resumida em `workspace/daily-logs/[C] YYYY-WXX-trends.md`:
+Then, also save a summarized markdown version to `workspace/daily-logs/[C] YYYY-WXX-trends.md`:
 
 ```markdown
-# Análise de Tendências — Semana {WXX}
+# Trends Analysis — Week {WXX}
 
-## Resumo Executivo
-{3 bullets: o que melhorou, o que piorou, oportunidade}
+## Executive Summary
+{3 bullets: what improved, what worsened, opportunity}
 
 ## Scorecard
 
-| Área | Métrica | Atual | Anterior | Var | Trend | Status |
+| Area | Metric | Current | Previous | Var | Trend | Status |
 |------|---------|-------|----------|-----|-------|--------|
-| Comunidade | WAM | {N} | {N} | {+/-X%} | ↑/↓/= | 🟢/🟡/🔴 |
-| Comunidade | Perguntas s/ resposta | {N} | {N} | | | |
-| Comunidade | Sentimento | {label} | {label} | | | |
-| GitHub | PRs abertos | {N} | {N} | | | |
-| GitHub | Issues s/ resposta | {N} | {N} | | | |
-| GitHub | Stars (semana) | {N} | {N} | | | |
-| Financeiro | MRR | R${N} | R${N} | {var%} | | |
-| Financeiro | Assinaturas ativas | {N} | {N} | | | |
-| Operacional | Success rate ADWs | {X}% | {X}% | | | |
+| Community | WAM | {N} | {N} | {+/-X%} | ↑/↓/= | 🟢/🟡/🔴 |
+| Community | Unanswered questions | {N} | {N} | | | |
+| Community | Sentiment | {label} | {label} | | | |
+| GitHub | Open PRs | {N} | {N} | | | |
+| GitHub | Unanswered issues | {N} | {N} | | | |
+| GitHub | Stars (week) | {N} | {N} | | | |
+| Financial | MRR | R${N} | R${N} | {var%} | | |
+| Financial | Active subscriptions | {N} | {N} | | | |
+| Operational | Success rate ADWs | {X}% | {X}% | | | |
 
-## Padrões Detectados
-- {padrão 1 com evidência}
-- {padrão 2 com evidência}
+## Detected Patterns
+- {pattern 1 with evidence}
+- {pattern 2 with evidence}
 
-## Riscos
-- {risco com métrica de suporte}
+## Risks
+- {risk with supporting metric}
 
-## Oportunidades
-- {oportunidade baseada nos dados}
+## Opportunities
+- {opportunity based on data}
 
-## Recomendações
-1. {ação concreta baseada nos dados}
-2. {ação concreta}
+## Recommendations
+1. {concrete action based on data}
+2. {concrete action}
 ```
 
 ### Step 6 — Save snapshot
 
-Save um snapshot das métricas atuais em `memory/trends/YYYY-WXX.json` pra acumular histórico:
+Save a snapshot of current metrics to `memory/trends/YYYY-WXX.json` to accumulate history:
 
 ```json
 {
@@ -154,7 +154,7 @@ Save um snapshot das métricas atuais em `memory/trends/YYYY-WXX.json` pra acumu
 }
 ```
 
-Criar `memory/trends/` if it does not exist.
+Create `memory/trends/` if it does not exist.
 
 ## Rules
 

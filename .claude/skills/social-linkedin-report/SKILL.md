@@ -20,7 +20,7 @@ python3 {project-root}/.claude/skills/int-linkedin/scripts/linkedin_client.py my
 
 If `my_posts` returns a permission error, inform that approval is needed and use available data.
 
-### Step 2 — Gerar relatório
+### Step 2 — Generate report
 
 Use template `.claude/templates/html/custom/social-analytics-report.html` with available data. Mark sections without data as "Pending — requires LinkedIn Advertising API approval".
 

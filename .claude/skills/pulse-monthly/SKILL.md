@@ -13,25 +13,25 @@ Monthly routine that analyzes all Discord and WhatsApp activity for the month an
 
 ### Step 1 — Determine period
 
-- Mês de referência: mês anterior ao atual (ex: se hoje é 01/04, analisar março)
-- Período: primeiro ao último dia do mês de referência
-- Dividir o mês em semanas (W1, W2, W3, W4/W5) para análise de tendência
+- Reference month: previous month (e.g., if today is 04/01, analyze March)
+- Period: first to last day of the reference month
+- Divide the month into weeks (W1, W2, W3, W4/W5) for trend analysis
 
-### Step 2 — Collect Discord data (30 dias)
+### Step 2 — Collect Discord data (30 days)
 
-Usar a skill `/discord-get-messages` para buscar mensagens do mês nos canais principais.
+Use the `/discord-get-messages` skill to fetch messages for the month in the main channels.
 
 Guild ID: `YOUR_GUILD_ID`
 
-Canais a monitorar:
-- Todos os canais de texto da comunidade (chat-pt, chat-en, chat-es, help, feedback, suggestions, showcase, news)
-- Canal de novos membros (`🆕・new-members`)
+Channels to monitor:
+- All community text channels (chat-pt, chat-en, chat-es, help, feedback, suggestions, showcase, news)
+- New members channel (`🆕・new-members`)
 
-Para cada canal, buscar mensagens paginadas (100 por request) até cobrir o mês completo.
+For each channel, fetch paginated messages (100 per request) until covering the full month.
 
-### Step 3 — Collect WhatsApp data (30 dias)
+### Step 3 — Collect WhatsApp data (30 days)
 
-Usar a skill `/int-whatsapp`:
+Use the `/int-whatsapp` skill:
 
 ```bash
 python3 {project-root}/.claude/skills/int-whatsapp/scripts/whatsapp_client.py messages_30d
@@ -41,88 +41,88 @@ python3 {project-root}/.claude/skills/int-whatsapp/scripts/whatsapp_client.py gr
 
 ### Step 4 — Calculate monthly KPIs
 
-1. **MAM (Monthly Active Members)**: membros únicos que enviaram mensagem no mês (Discord + WhatsApp)
-2. **Total Mensagens**: Discord + WhatsApp separados e somados
-3. **Novos Membros**: entradas em `🆕・new-members` do Discord no mês
-4. **Taxa de Resolução**: perguntas respondidas / total em #help (meta: >80%)
-5. **Comparison**: comparar todos os KPIs com o mês anterior (ler relatório anterior se existir em `workspace/community/reports/monthly/`)
+1. **MAM (Monthly Active Members)**: unique members who sent a message in the month (Discord + WhatsApp)
+2. **Total Messages**: Discord + WhatsApp separate and combined
+3. **New Members**: entries in Discord `🆕・new-members` for the month
+4. **Resolution Rate**: answered questions / total in #help (goal: >80%)
+5. **Comparison**: compare all KPIs with the previous month (read previous report if it exists in `workspace/community/reports/monthly/`)
 
 ### Step 5 — Weekly evolution
 
-Para cada semana do mês, calcular:
-- Mensagens
-- Membros ativos
-- Novos membros
-- Sentimento (positivo/neutro/negativo)
-- Tickets suporte abertos
+For each week of the month, calculate:
+- Messages
+- Active members
+- New members
+- Sentiment (positive/neutral/negative)
+- Open support tickets
 
-Apresentar em tabela para visualizar tendência ao longo do mês.
+Present in a table to visualize the trend throughout the month.
 
 ### Step 6 — Metrics by platform
 
 **Discord:**
-- Total de mensagens, membros ativos, tickets suporte, sentimento
-- Canal mais ativo, canal mais ajudado
+- Total messages, active members, support tickets, sentiment
+- Most active channel, most helped channel
 
 **WhatsApp:**
-- Total de mensagens, grupos ativos, participantes únicos, sentimento
-- Grupo mais ativo
+- Total messages, active groups, unique participants, sentiment
+- Most active group
 
 ### Step 7 — Top contributors
 
-Rankear por volume de mensagens + respostas dadas em #help:
-- Top 10 membros mais ativos
-- Plataforma principal (Discord/WhatsApp)
-- Destaque (helper, novo membro ativo, líder de tópico)
+Rank by message volume + answers given in #help:
+- Top 10 most active members
+- Main platform (Discord/WhatsApp)
+- Highlight (helper, active new member, topic leader)
 
 ### Step 8 — Month's topics
 
-Agrupar todas as discussões por tema:
-- Top 10 tópicos mais discutidos
-- Frequência, sentimento por tópico
-- Fontes (Discord, WhatsApp, ou ambos)
+Group all discussions by theme:
+- Top 10 most discussed topics
+- Frequency, sentiment by topic
+- Sources (Discord, WhatsApp, or both)
 
 ### Step 9 — Product insights
 
-1. **Features solicitadas**: pedidos espontâneos de funcionalidades (com frequência)
-2. **Bugs reportados**: problemas técnicos mencionados (com frequência)
-3. **Docs gaps**: perguntas recorrentes cuja resposta deveria estar na documentação
+1. **Requested features**: spontaneous feature requests (with frequency)
+2. **Reported bugs**: technical problems mentioned (with frequency)
+3. **Docs gaps**: recurring questions whose answers should be in the documentation
 
 ### Step 10 — Sentiment trend
 
-Para cada semana do mês:
-- % positivo, % neutro, % negativo
-- Tendência: melhorando, estável, piorando
+For each week of the month:
+- % positive, % neutral, % negative
+- Trend: improving, stable, worsening
 
 ### Step 11 — Analysis and recommendations
 
-**Análise** (3-5 bullets):
-- Crescimento ou retração da comunidade
-- Padrões de engajamento (dias/horários de pico)
-- Evolução do sentimento
-- Eficácia do suporte
-- Discord vs WhatsApp: qual plataforma cresce mais?
+**Analysis** (3-5 bullets):
+- Community growth or contraction
+- Engagement patterns (peak days/times)
+- Sentiment evolution
+- Support effectiveness
+- Discord vs WhatsApp: which platform is growing more?
 
-**Recomendações** (3-5 bullets):
-- Ações para melhorar engajamento
-- Docs a criar/atualizar
-- Features a priorizar baseado no feedback
-- Membros a reconhecer/engajar
+**Recommendations** (3-5 bullets):
+- Actions to improve engagement
+- Docs to create/update
+- Features to prioritize based on feedback
+- Members to recognize/engage
 
 ### Step 12 — Generate HTML report
 
-Read the template at `.claude/templates/html/custom/community-monthly-report.html` e substituir TODOS os `{{PLACEHOLDER}}`.
+Read the template at `.claude/templates/html/custom/community-monthly-report.html` and replace ALL `{{PLACEHOLDER}}`.
 
-Para rows dinâmicas, usar o padrão das outras skills pulse:
+For dynamic rows, use the pattern from the other pulse skills:
 
-**Semanas:**
+**Weeks:**
 ```html
 <tr>
-  <td>Semana 1 (01-07/MM)</td>
+  <td>Week 1 (01-07/MM)</td>
   <td class="right">XXX</td>
   <td class="right">XX</td>
   <td class="right">X</td>
-  <td class="right"><span class="badge green">Positivo</span></td>
+  <td class="right"><span class="badge green">Positive</span></td>
   <td class="right">X</td>
 </tr>
 ```
@@ -138,29 +138,29 @@ Para rows dinâmicas, usar o padrão das outras skills pulse:
 </tr>
 ```
 
-**Tópicos:**
+**Topics:**
 ```html
-<div class="list-item">Tópico — XX menções, sentimento positivo/misto/negativo</div>
+<div class="list-item">Topic — XX mentions, positive/mixed/negative sentiment</div>
 ```
 
 **Features/Bugs:**
 ```html
-<div class="list-item">Descrição — X menções (Discord/WhatsApp)</div>
+<div class="list-item">Description — X mentions (Discord/WhatsApp)</div>
 ```
 
 **Docs gaps:**
 ```html
 <tr>
-  <td>Pergunta recorrente</td>
+  <td>Recurring question</td>
   <td>Discord #help / WhatsApp</td>
-  <td class="right">X vezes</td>
-  <td><span class="badge yellow">Instalação</span></td>
+  <td class="right">X times</td>
+  <td><span class="badge yellow">Installation</span></td>
 </tr>
 ```
 
 ### Step 13 — Save
 
-Save em:
+Save to:
 ```
 workspace/community/reports/monthly/[C] YYYY-MM-community-monthly.html
 ```
@@ -170,13 +170,13 @@ Create the directory `workspace/community/reports/monthly/` if it does not exist
 ### Step 14 — Confirm
 
 ```
-## Community Monthly gerado
+## Community Monthly generated
 
-**Arquivo:** workspace/community/reports/monthly/[C] YYYY-MM-community-monthly.html
-**Mês:** {mês de referência}
-**MAM:** {N} ({delta}%) | **Mensagens:** {N} | **Novos:** {N}
-**Sentimento:** {tendência} | **Resolução:** {X}%
-**Destaques:** {N} features, {N} bugs, {N} docs gaps
+**File:** workspace/community/reports/monthly/[C] YYYY-MM-community-monthly.html
+**Month:** {reference month}
+**MAM:** {N} ({delta}%) | **Messages:** {N} | **New:** {N}
+**Sentiment:** {trend} | **Resolution:** {X}%
+**Highlights:** {N} features, {N} bugs, {N} docs gaps
 ```
 
 ### Notify via Telegram

@@ -11,11 +11,11 @@ services:
     volumes:
       - daily-logs:/workspace/workspace/daily-logs
       - projects:/workspace/workspace/projects
-      - comunidade:/workspace/workspace/community
-      - financeiro:/workspace/workspace/finance
-      - pessoal:/workspace/workspace/personal
-      - reunioes:/workspace/workspace/meetings
-      - estrategia:/workspace/workspace/strategy
+      - community:/workspace/workspace/community
+      - financial:/workspace/workspace/finance
+      - personal:/workspace/workspace/personal
+      - meetings:/workspace/workspace/meetings
+      - strategy:/workspace/workspace/strategy
       - memory:/workspace/memory
       - adw-logs:/workspace/ADWs/logs
       - agent-memory:/workspace/.claude/agent-memory
@@ -39,11 +39,11 @@ services:
     volumes:
       - daily-logs:/workspace/workspace/daily-logs
       - projects:/workspace/workspace/projects
-      - comunidade:/workspace/workspace/community
-      - financeiro:/workspace/workspace/finance
-      - pessoal:/workspace/workspace/personal
-      - reunioes:/workspace/workspace/meetings
-      - estrategia:/workspace/workspace/strategy
+      - community:/workspace/workspace/community
+      - financial:/workspace/workspace/finance
+      - personal:/workspace/workspace/personal
+      - meetings:/workspace/workspace/meetings
+      - strategy:/workspace/workspace/strategy
       - memory:/workspace/memory
       - adw-logs:/workspace/ADWs/logs
       - agent-memory:/workspace/.claude/agent-memory
@@ -63,11 +63,11 @@ services:
     volumes:
       - daily-logs:/workspace/workspace/daily-logs
       - projects:/workspace/workspace/projects
-      - comunidade:/workspace/workspace/community
-      - financeiro:/workspace/workspace/finance
-      - pessoal:/workspace/workspace/personal
-      - reunioes:/workspace/workspace/meetings
-      - estrategia:/workspace/workspace/strategy
+      - community:/workspace/workspace/community
+      - financial:/workspace/workspace/finance
+      - personal:/workspace/workspace/personal
+      - meetings:/workspace/workspace/meetings
+      - strategy:/workspace/workspace/strategy
       - memory:/workspace/memory
       - adw-logs:/workspace/ADWs/logs
       - agent-memory:/workspace/.claude/agent-memory
@@ -77,11 +77,11 @@ services:
 volumes:
   daily-logs:
   projects:
-  comunidade:
-  financeiro:
-  pessoal:
-  reunioes:
-  estrategia:
+  community:
+  financial:
+  personal:
+  meetings:
+  strategy:
   memory:
   adw-logs:
   agent-memory:

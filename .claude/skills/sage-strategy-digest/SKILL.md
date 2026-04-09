@@ -11,80 +11,80 @@ Weekly routine that consolidates data from all areas into a strategic view for d
 
 ## Workflow
 
-### Step 1 — Collect data de cada área
+### Step 1 — Collect data from each area
 
-**Financeiro:**
-- Consultar `/int-stripe` — MRR atual, variação, novas assinaturas, churn, reembolsos
-- Se disponível, ler último relatório em `workspace/finance/`
+**Financial:**
+- Query `/int-stripe` — current MRR, variance, new subscriptions, churn, refunds
+- If available, read latest report in `workspace/finance/`
 
-**Produto:**
-- Ler último `/int-linear-review` em `workspace/projects/linear-reviews/`
-- Ler último `/int-github-review` em `workspace/projects/github-reviews/`
-- Resumir: entregas da semana, blockers, PRs, issues da comunidade
+**Product:**
+- Read latest `/int-linear-review` in `workspace/projects/linear-reviews/`
+- Read latest `/int-github-review` in `workspace/projects/github-reviews/`
+- Summarize: deliveries of the week, blockers, PRs, community issues
 
-**Comunidade:**
-- Ler último relatório em `workspace/community/reports/weekly/`
-- Resumir: WAM, sentimento, tópicos quentes, FAQ gaps
+**Community:**
+- Read latest report in `workspace/community/reports/weekly/`
+- Summarize: WAM, sentiment, hot topics, FAQ gaps
 
-**Comercial:**
-- Se existir pipeline em `workspace/projects/comercial/`, ler status
-- Verificar parcerias ativas
+**Sales:**
+- If pipeline exists in `workspace/projects/comercial/`, read status
+- Check active partnerships
 
-**Tendências:**
-- Ler último trends report em `workspace/daily-logs/`
+**Trends:**
+- Read latest trends report in `workspace/daily-logs/`
 
-### Step 2 — Analyze estrategicamente
+### Step 2 — Analyze strategically
 
-Cruzar os dados e responder:
-1. **Saúde do negócio** — caixa, receita, runway. Estamos seguros?
-2. **Momentum de produto** — estamos entregando? O que tá travado?
-3. **Comunidade** — crescendo? Sentimento positivo? Suporte em dia?
-4. **Mercado** — alguma mudança relevante na concorrência ou no setor?
-5. **Riscos** — o que pode dar errado nas próximas 2-4 semanas?
-6. **Oportunidades** — o que devemos considerar fazer?
+Cross-reference the data and answer:
+1. **Business health** — cash, revenue, runway. Are we secure?
+2. **Product momentum** — are we delivering? What is blocked?
+3. **Community** — growing? Positive sentiment? Support up to date?
+4. **Market** — any relevant changes in competition or the sector?
+5. **Risks** — what could go wrong in the next 2-4 weeks?
+6. **Opportunities** — what should we consider doing?
 
 ### Step 3 — Generate digest (HTML + MD)
 
-**HTML:** Read the template at `.claude/templates/html/custom/strategy-digest.html`, preencher todos os `{{PLACEHOLDER}}` com os dados coletados e salvar em `workspace/strategy/digests/[C] YYYY-WXX-strategy-digest.html`. Create the directory if it does not exist.
+**HTML:** Read the template at `.claude/templates/html/custom/strategy-digest.html`, fill all `{{PLACEHOLDER}}` with the collected data and save to `workspace/strategy/digests/[C] YYYY-WXX-strategy-digest.html`. Create the directory if it does not exist.
 
-**MD:** Também salvar versão markdown em `workspace/strategy/digests/[C] YYYY-WXX-strategy-digest.md` com o seguinte formato:
+**MD:** Also save markdown version to `workspace/strategy/digests/[C] YYYY-WXX-strategy-digest.md` with the following format:
 
 ```markdown
-# Strategy Digest — Semana {WXX}
+# Strategy Digest — Week {WXX}
 
-> Gerado em: {YYYY-MM-DD}
-> Agente: @sage
+> Generated on: {YYYY-MM-DD}
+> Agent: @sage
 
-## Saúde do Negócio
+## Business Health
 **Status:** 🟢/🟡/🔴
 - MRR: R${X} ({var%})
-- Assinaturas: {N} ({+/-})
-- Runway: {N} meses
+- Subscriptions: {N} ({+/-})
+- Runway: {N} months
 
-## Produto
+## Product
 **Status:** 🟢/🟡/🔴
-- Entregas: {resumo}
+- Deliveries: {summary}
 - Blockers: {N}
-- Issues comunidade: {N} abertas
+- Community issues: {N} open
 
-## Comunidade
+## Community
 **Status:** 🟢/🟡/🔴
 - WAM: {N}
-- Sentimento: {label}
+- Sentiment: {label}
 - Docs gaps: {N}
 
-## Comercial
-- Pipeline: {resumo}
-- Parcerias: {status}
+## Sales
+- Pipeline: {summary}
+- Partnerships: {status}
 
-## Riscos (próximas 2-4 semanas)
-1. {risco com evidência}
+## Risks (next 2-4 weeks)
+1. {risk with evidence}
 
-## Oportunidades
-1. {oportunidade com justificativa}
+## Opportunities
+1. {opportunity with justification}
 
-## Recomendação da semana
-{Uma frase: o que o responsável deveria priorizar baseado em tudo acima}
+## Recommendation of the week
+{One sentence: what the owner should prioritize based on everything above}
 ```
 
 ### Step 4 — Terminal summary

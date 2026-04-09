@@ -9,85 +9,85 @@ End-of-day routine that consolidates everything that happened during the day: ag
 
 **Always respond in English.**
 
-## Step 1 — Collect data do dia (silenciosamente)
+## Step 1 — Collect data for the day (silently)
 
-Ler todas as fontes disponíveis sem narrar cada passo:
+Read all available sources without narrating each step:
 
-### 1a. Memória dos agentes
-Ler os arquivos de memória recentes de cada agente em `.claude/agent-memory/`:
-- `flux-finance/` — decisões financeiras do dia
-- `atlas-project/` — atualizações de projetos
-- `kai-personal-assistant/` — se houver algo relevante
-- Qualquer outro agente que tenha sido usado
+### 1a. Agent memory
+Read recent memory files from each agent in `.claude/agent-memory/`:
+- `flux-finance/` — financial decisions of the day
+- `atlas-project/` — project updates
+- `kai-personal-assistant/` — if there is anything relevant
+- Any other agent that was used
 
-### 1b. Logs de ADW
-Ler o log JSONL de hoje em `ADWs/logs/YYYY-MM-DD.jsonl` para ver quais routines rodaram, duração e status.
+### 1b. ADW logs
+Read today's JSONL log at `ADWs/logs/YYYY-MM-DD.jsonl` to see which routines ran, duration, and status.
 
-### 1c. Reuniões do dia
-Verificar `workspace/meetings/summaries/` e `workspace/meetings/fathom/` do dia para reuniões que foram sincronizadas.
+### 1c. Meetings of the day
+Check `workspace/meetings/summaries/` and `workspace/meetings/fathom/` for today's synced meetings.
 
-### 1d. Tarefas
-Rodar `todoist today` para ver tarefas concluídas e pendentes do dia.
+### 1d. Tasks
+Run `todoist today` to see completed and pending tasks for the day.
 
-### 1e. Git changes do dia
-Rodar `git diff --stat` e `git log --oneline --since="today 00:00"` pra ver:
-- Arquivos criados, modificados ou deletados hoje
-- Commits feitos (mensagens e autores)
-- Mudanças não commitadas (working tree)
+### 1e. Git changes of the day
+Run `git diff --stat` and `git log --oneline --since="today 00:00"` to see:
+- Files created, modified, or deleted today
+- Commits made (messages and authors)
+- Uncommitted changes (working tree)
 
-Isso dá o panorama real do que mudou no workspace — mais preciso que ler a conversa.
+This gives the real overview of what changed in the workspace — more accurate than reading the conversation.
 
-### 1f. Sessão atual
-Revisar a conversa da sessão atual — o que foi discutido, decidido e feito.
+### 1f. Current session
+Review the current session conversation — what was discussed, decided, and done.
 
 ## Step 2 — Consolidate learnings
 
-Analyze tudo que foi coletado e identificar:
-- **Decisões tomadas** — o que foi decidido e por quê
-- **Aprendizados** — padrões, correções, feedbacks que devem ser lembrados
-- **Pessoas** — contexto novo sobre pessoas do time
-- **Pendências reais** — coisas que ficaram em aberto de verdade (não inventar)
+Analyze everything that was collected and identify:
+- **Decisions made** — what was decided and why
+- **Learnings** — patterns, corrections, feedback that should be remembered
+- **People** — new context about team members
+- **Real pending items** — things that truly remain open (do not fabricate)
 
-## Step 3 — Save memória
+## Step 3 — Save memory
 
-Se houver decisões, aprendizados ou feedbacks relevantes, salvar na memória persistente em `memory/` seguindo o sistema de memória do workspace (ver `prod-memory-management`).
+If there are relevant decisions, learnings, or feedback, save to persistent memory in `memory/` following the workspace memory system (see `prod-memory-management`).
 
-Não duplicar — verificar se já existe memória similar antes de criar.
+Do not duplicate — check if similar memory already exists before creating.
 
 ## Step 4 — Generate daily log
 
-Read the template at `.claude/templates/end-of-day-log.md` e preencher com os dados consolidados.
+Read the template at `.claude/templates/end-of-day-log.md` and fill with the consolidated data.
 
-Save em:
+Save to:
 ```
 workspace/daily-logs/[C] YYYY-MM-DD.md
 ```
 
-O log deve incluir:
-- O que foi feito (projetos, tarefas, reuniões)
-- Arquivos criados ou alterados
-- Rotinas ADW que rodaram (com status)
-- Pendências (só se reais)
-- Onde retomar amanhã
+The log should include:
+- What was done (projects, tasks, meetings)
+- Files created or modified
+- ADW routines that ran (with status)
+- Pending items (only if real)
+- Where to resume tomorrow
 
 ## Step 5 — Organize tasks
 
-Rodar `/prod-review-todoist` para garantir que tarefas criadas durante o dia estão categorizadas e traduzidas.
+Run `/prod-review-todoist` to ensure tasks created during the day are categorized and translated.
 
 ## Step 6 — Confirm
 
 Present a short summary:
 
 ```
-## Dia encerrado
+## Day closed
 
 **Log:** workspace/daily-logs/[C] YYYY-MM-DD.md
-**Rotinas ADW:** {N} executadas ({status})
-**Tarefas:** {concluídas}/{total} concluídas
-**Memórias:** {N} criadas/atualizadas
-**Aprendizados:** {N} registrados
+**ADW Routines:** {N} executed ({status})
+**Tasks:** {completed}/{total} completed
+**Memories:** {N} created/updated
+**Learnings:** {N} recorded
 
-**Amanhã:** {frase sobre onde retomar}
+**Tomorrow:** {sentence about where to resume}
 ```
 
 

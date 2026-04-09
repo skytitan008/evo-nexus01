@@ -14,84 +14,84 @@ Routine that pulls data from ALL connected social platforms (YouTube, Instagram,
 
 ### Step 1 — Collect data from all platforms (silently)
 
-Executar os scripts de cada integração e capturar os resultados:
+Execute the scripts for each integration and capture the results:
 
-#### YouTube (todas as contas)
+#### YouTube (all accounts)
 ```bash
 python3 {project-root}/.claude/skills/int-youtube/scripts/youtube_client.py summary
 python3 {project-root}/.claude/skills/int-youtube/scripts/youtube_client.py recent_videos 1 10
 ```
 
-#### Instagram (todas as contas)
+#### Instagram (all accounts)
 ```bash
 python3 {project-root}/.claude/skills/int-instagram/scripts/instagram_client.py summary
 python3 {project-root}/.claude/skills/int-instagram/scripts/instagram_client.py recent_posts your_account 10
 python3 {project-root}/.claude/skills/int-instagram/scripts/instagram_client.py recent_posts secondary_account 10
 ```
 
-#### LinkedIn (todas as contas)
+#### LinkedIn (all accounts)
 ```bash
 python3 {project-root}/.claude/skills/int-linkedin/scripts/linkedin_client.py summary
 ```
 
-Se alguma plataforma falhar ou não tiver dados, incluir no relatório como "Sem dados — plataforma não configurada ou API limitada" sem quebrar o relatório.
+If any platform fails or has no data, include in the report as "No data — platform not configured or API limited" without breaking the report.
 
-### Step 2 — Consolidar métricas cross-platform
+### Step 2 — Consolidate cross-platform metrics
 
-Calcular:
+Calculate:
 
-1. **Total seguidores** (soma de todas as contas de todas as plataformas)
-2. **Total publicações** no período (YouTube vídeos + Instagram posts)
-3. **Engagement rate médio** ponderado por plataforma
-4. **Plataforma com maior crescimento** (delta de seguidores, se houver relatório anterior)
-5. **Plataforma com maior engagement** (comparar engagement rates)
+1. **Total followers** (sum of all accounts across all platforms)
+2. **Total publications** in the period (YouTube videos + Instagram posts)
+3. **Average engagement rate** weighted by platform
+4. **Platform with highest growth** (follower delta, if previous report exists)
+5. **Platform with highest engagement** (compare engagement rates)
 
-### Step 3 — Montar tabela comparativa
+### Step 3 — Build comparison table
 
-Uma row por conta:
+One row per account:
 
-| Plataforma | Conta | Seguidores | Delta | Posts | Engagement | Melhor Conteúdo |
+| Platform | Account | Followers | Delta | Posts | Engagement | Best Content |
 |------------|-------|-----------|-------|-------|------------|-----------------|
 | YouTube | Your Channel | 7.450 | — | 27 | 7.0% | "Evo v3 chegando" |
 | Instagram | your_account | 686 | — | 18 | 3.9% | "Evo V3 funcionalidades" |
 | Instagram | secondary_account | 273 | — | 76 | — | — |
 | LinkedIn | Your Profile | — | — | — | — | Perfil apenas |
 
-### Step 4 — Top conteúdos cross-platform
+### Step 4 — Top cross-platform content
 
-Rankear os top 10 conteúdos de TODAS as plataformas por engagement (likes + comments / views ou followers). Mostrar:
-- Plataforma
-- Título/caption (resumo)
-- Views ou alcance
+Rank the top 10 content from ALL platforms by engagement (likes + comments / views or followers). Show:
+- Platform
+- Title/caption (summary)
+- Views or reach
 - Engagement %
 - Link
 
 ### Step 5 — Compare with previous period
 
-Ler o relatório anterior em `workspace/social/reports/consolidated/` if it exists. Calculate deltas de:
-- Seguidores por plataforma
-- Engagement médio
-- Volume de publicações
+Read the previous report in `workspace/social/reports/consolidated/` if it exists. Calculate deltas for:
+- Followers per platform
+- Average engagement
+- Publication volume
 
-### Step 6 — Insights cross-platform
+### Step 6 — Cross-platform insights
 
-Gerar análise com:
-- Qual plataforma cresce mais?
-- Qual tipo de conteúdo performa melhor onde? (vídeo no YouTube vs imagem no Instagram)
-- Frequência de publicação por plataforma
-- Recomendações: onde investir mais conteúdo, que formato priorizar
-- Plataformas sem dados (LinkedIn posts, etc) — o que falta pra destravar
+Generate analysis with:
+- Which platform is growing the most?
+- Which content type performs best where? (video on YouTube vs image on Instagram)
+- Publication frequency per platform
+- Recommendations: where to invest more content, which format to prioritize
+- Platforms without data (LinkedIn posts, etc.) — what is missing to unlock
 
 ### Step 7 — Generate HTML
 
-Ler template `.claude/templates/html/custom/social-analytics-report.html` e preencher todos os `{{PLACEHOLDER}}`.
+Read template `.claude/templates/html/custom/social-analytics-report.html` and fill all `{{PLACEHOLDER}}`.
 
 `{{REPORT_TYPE}}` depende da frequência:
-- Diário: "Daily"
-- Semanal: "Weekly" 
-- Mensal: "Monthly"
+- Daily: "Daily"
+- Weekly: "Weekly" 
+- Monthly: "Monthly"
 
-Para rows da tabela comparativa:
+For comparison table rows:
 ```html
 <tr>
   <td><span class="badge blue">YouTube</span></td>
@@ -104,7 +104,7 @@ Para rows da tabela comparativa:
 </tr>
 ```
 
-Para plataformas sem dados:
+For platforms without data:
 ```html
 <tr style="opacity:0.5">
   <td><span class="badge muted">LinkedIn</span></td>
@@ -113,18 +113,18 @@ Para plataformas sem dados:
   <td class="right">—</td>
   <td class="right">—</td>
   <td class="right">—</td>
-  <td style="color:var(--text-muted)">API limitada — perfil apenas</td>
+  <td style="color:var(--text-muted)">API limited — profile only</td>
 </tr>
 ```
 
-Para `{{MISSING_INTEGRATIONS}}` — se alguma plataforma não está configurada:
+For `{{MISSING_INTEGRATIONS}}` — if any platform is not configured:
 ```html
 <div class="highlight-card" style="border-color: rgba(102,112,133,0.3);">
-  <div class="title" style="color: var(--text-muted);">Integrações Pendentes</div>
+  <div class="title" style="color: var(--text-muted);">Pending Integrations</div>
   <div class="body">
     <ul style="list-style:none;padding:0;">
-      <li>LinkedIn — Posts e Company Page (requer Community Management API)</li>
-      <li>Twitter — Não configurado</li>
+      <li>LinkedIn — Posts and Company Page (requires Community Management API)</li>
+      <li>Twitter — Not configured</li>
     </ul>
   </div>
 </div>
@@ -136,7 +136,7 @@ Para `{{MISSING_INTEGRATIONS}}` — se alguma plataforma não está configurada:
 workspace/social/reports/consolidated/[C] YYYY-MM-DD-social-analytics.html
 ```
 
-Criar diretório if it does not exist.
+Create directory if it does not exist.
 
 ### Step 9 — Telegram
 
@@ -144,9 +144,9 @@ Notify: `reply(chat_id="YOUR_CHAT_ID", text="...")`
 Format:
 ```
 📊 Social Analytics — {period}
-👥 Total seguidores: {N} ({delta})
+👥 Total followers: {N} ({delta})
 📹 YouTube: {subs} sub | {eng}% eng
-📸 Instagram: {followers} seg | {eng}% eng  
-💼 LinkedIn: perfil conectado
-🏆 Top: "{melhor conteúdo}" ({plataforma}, {eng}%)
+📸 Instagram: {followers} fol | {eng}% eng  
+💼 LinkedIn: profile connected
+🏆 Top: "{best content}" ({platform}, {eng}%)
 ```

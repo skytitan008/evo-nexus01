@@ -15,51 +15,51 @@ Routine that keeps the community FAQ always updated, fed by questions from Disco
 workspace/community/[C] FAQ.md
 ```
 
-Este é o arquivo fonte de verdade. Todos os agentes e bots de suporte devem consultar este arquivo.
+This is the single source of truth file. All agents and support bots should consult this file.
 
 ## FAQ Structure
 
-O arquivo segue este formato:
+The file follows this format:
 
 ```markdown
 # FAQ — Community
 
-> Atualizado automaticamente. Última sync: {YYYY-MM-DD HH:MM}
-> Fontes: Discord (#help, #feedback) + GitHub Issues
-> Total: {N} perguntas
+> Automatically updated. Last sync: {YYYY-MM-DD HH:MM}
+> Sources: Discord (#help, #feedback) + GitHub Issues
+> Total: {N} questions
 
 ---
 
-## Instalação & Setup
-<!-- tag: instalação, setup, docker, deploy -->
+## Installation & Setup
+<!-- tag: installation, setup, docker, deploy -->
 
-### Como instalar a API principal via Docker?
-**Resposta:** [resposta clara e direta]
-**Fonte:** Discord #help (recorrente) | [Link doc oficial se existir]
-**Adicionado:** YYYY-MM-DD
+### How to install the main API via Docker?
+**Answer:** [clear and direct answer]
+**Source:** Discord #help (recurring) | [Official doc link if available]
+**Added:** YYYY-MM-DD
 
-### Como configurar SSL/HTTPS?
-**Resposta:** [...]
-**Fonte:** GitHub YOUR_ORG/main-api#123
-**Adicionado:** YYYY-MM-DD
+### How to configure SSL/HTTPS?
+**Answer:** [...]
+**Source:** GitHub YOUR_ORG/main-api#123
+**Added:** YYYY-MM-DD
 
 ---
 
-## Configuração
-<!-- tag: config, env, variáveis, webhook -->
+## Configuration
+<!-- tag: config, env, variables, webhook -->
 
-### Como configurar webhooks?
+### How to configure webhooks?
 ...
 
 ---
 
-## Integrações
+## Integrations
 <!-- tag: whatsapp, telegram, typebot, n8n, chatwoot -->
 
 ...
 
 ## Evo CRM
-<!-- tag: crm, agentes, pipeline, leads -->
+<!-- tag: crm, agents, pipeline, leads -->
 
 ...
 
@@ -68,13 +68,13 @@ O arquivo segue este formato:
 
 ...
 
-## Billing & Licenças
-<!-- tag: licença, plano, preço, pagamento -->
+## Billing & Licenses
+<!-- tag: license, plan, price, payment -->
 
 ...
 
-## Erros Comuns
-<!-- tag: erro, bug, 503, 401, timeout -->
+## Common Errors
+<!-- tag: error, bug, 503, 401, timeout -->
 
 ...
 ```
@@ -83,21 +83,21 @@ O arquivo segue este formato:
 
 ### Step 1 — Read current FAQ
 
-Ler `workspace/community/[C] FAQ.md`. Se não existir, criar com a estrutura base.
+Read `workspace/community/[C] FAQ.md`. If it does not exist, create it with the base structure.
 
-Contar quantas entradas existem e quais categorias.
+Count how many entries exist and which categories.
 
 ### Step 2 — Collect new questions
 
-**Do Discord (últimas 24h):**
-Usar `/discord-get-messages` nos canais:
+**From Discord (last 24h):**
+Use `/discord-get-messages` on channels:
 - `🆘・help` (ID do canal de help)
 - `🆘・feedback`
 - `💬・chat-pt`
 
-Identificar mensagens que são **perguntas** (terminam em ?, pedem ajuda, reportam erro).
+Identify messages that are **questions** (end in ?, ask for help, report errors).
 
-**Do GitHub (últimas 24h):**
+**From GitHub (last 24h):**
 ```bash
 # Issues abertas recentemente nos 5 repos
 gh issue list --repo YOUR_ORG/main-api --state open --json title,body,labels,createdAt --limit 10
@@ -107,73 +107,73 @@ gh issue list --repo YOUR_ORG/crm-community --state open --json title,body,label
 gh issue list --repo YOUR_ORG/methodology --state open --json title,body,labels,createdAt --limit 5
 ```
 
-Filtrar issues que são perguntas ou bugs recorrentes.
+Filter issues that are questions or recurring bugs.
 
-**Do WhatsApp (últimas 24h):**
-Usar `/int-whatsapp` para buscar mensagens dos grupos:
+**From WhatsApp (last 24h):**
+Use `/int-whatsapp` to fetch messages from groups:
 
 ```bash
 python3 {project-root}/.claude/skills/int-whatsapp/scripts/whatsapp_client.py messages_24h
 ```
 
-Filtrar mensagens que são perguntas (terminam em ?, pedem ajuda, reportam erro, pedem orientação sobre configuração). Marcar fonte como "WhatsApp {nome do grupo}".
+Filter messages that are questions (end in ?, ask for help, report errors, ask for configuration guidance). Mark source as "WhatsApp {group name}".
 
-**Do Linear — Projeto "Evolution Suporte":**
-Usar MCP do Linear para buscar issues resolvidas recentemente no projeto de suporte pago:
+**From Linear — "Evolution Suporte" Project:**
+Use Linear MCP to fetch recently resolved issues from the paid support project:
 ```
 list_issues(project="Evolution Suporte", state="Done", updatedAt="-P1D")
 ```
 
-Issues resolvidas no suporte pago são fonte de ouro para o FAQ — são problemas reais de clientes com soluções validadas. Para cada issue resolvida:
-- Extrair o problema reportado como pergunta
-- Extrair a resolução como resposta
-- Marcar fonte como "Linear — Suporte Pago"
-- Priorizar inclusão no FAQ (clientes pagantes = alta relevância)
+Resolved issues from paid support are a gold mine for the FAQ — these are real client problems with validated solutions. For each resolved issue:
+- Extract the reported problem as a question
+- Extract the resolution as an answer
+- Mark source as "Linear — Paid Support"
+- Prioritize inclusion in FAQ (paying clients = high relevance)
 
-### Step 3 — Analyze e classificar
+### Step 3 — Analyze and classify
 
-Para cada pergunta encontrada:
+For each question found:
 
-1. **Já existe no FAQ?** → Se sim, verificar se a resposta precisa de atualização
-2. **É recorrente?** → Se apareceu 2+ vezes (Discord ou GitHub), adicionar com prioridade
-3. **Tem resposta?** → Se alguém respondeu no Discord/GitHub, usar como base
-4. **Qual categoria?** → Classificar na categoria correta do FAQ
+1. **Already in the FAQ?** → If yes, check if the answer needs updating
+2. **Is it recurring?** → If it appeared 2+ times (Discord or GitHub), add with priority
+3. **Has an answer?** → If someone answered on Discord/GitHub, use as a base
+4. **Which category?** → Classify in the correct FAQ category
 
 ### Step 4 — Update FAQ
 
-Para cada pergunta nova que deve entrar:
-- Formular pergunta clara em PT-BR
-- Escrever resposta objetiva e acionável
-- Incluir fonte (Discord/GitHub + link se possível)
-- Incluir data
-- Adicionar na categoria correta
+For each new question to be added:
+- Formulate a clear question in PT-BR
+- Write an objective and actionable answer
+- Include source (Discord/GitHub + link if possible)
+- Include date
+- Add to the correct category
 
-Para perguntas existentes:
-- Atualizar resposta se houve informação nova
-- Marcar como "atualizado" com nova data
+For existing questions:
+- Update the answer if there is new information
+- Mark as "updated" with new date
 
 ### Step 5 — Update header
 
-Atualizar o header do FAQ com:
-- Data/hora da última sync
-- Total de perguntas
-- Categorias existentes
+Update the FAQ header with:
+- Date/time of last sync
+- Total questions
+- Existing categories
 
 ### Step 6 — Report
 
 Present a short summary:
 
 ```
-## FAQ Sync — {data}
+## FAQ Sync — {date}
 
-Perguntas no FAQ: {total}
-Novas adicionadas: {N}
-Atualizadas: {N}
-Fontes: Discord ({N} perguntas) + GitHub ({N} issues)
+Questions in FAQ: {total}
+New added: {N}
+Updated: {N}
+Sources: Discord ({N} questions) + GitHub ({N} issues)
 
-Novas:
-- {pergunta 1} → {categoria}
-- {pergunta 2} → {categoria}
+New:
+- {question 1} → {category}
+- {question 2} → {category}
 ```
 
 ## Rules

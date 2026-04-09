@@ -9,8 +9,8 @@ Skill to review and organize tasks in the Evolution Todoist project. Identifies 
 
 ## Prerequisites
 
-- CLI `todoist` instalado e autenticado
-- Projeto `Evolution` existente no Todoist
+- CLI `todoist` installed and authenticated
+- `Evolution` project existing in Todoist
 
 ## Workflow
 
@@ -41,11 +41,11 @@ Add `[Categoria]` prefix to the title. Available categories:
 |---|---|
 | `[Produto & Tech]` | Development, bugs, features, infra, deploy, code |
 | `[Marketing]` | Content, campaigns, videos, social media, launches |
-| `[Comercial]` | Pipeline, proposals, partnerships, leads, pricing |
-| `[Financeiro]` | Accounts, invoices, payments, financial metrics |
-| `[Operação]` | Internal processes, groups, access, team communication |
-| `[Estratégia]` | OKRs, roadmap, analyses, strategic decisions |
-| `[Comunidade]` | Discord, support, user feedback, beta testers |
+| `[Sales]` | Pipeline, proposals, partnerships, leads, pricing |
+| `[Financial]` | Accounts, invoices, payments, financial metrics |
+| `[Operations]` | Internal processes, groups, access, team communication |
+| `[Strategy]` | OKRs, roadmap, analyses, strategic decisions |
+| `[Community]` | Discord, support, user feedback, beta testers |
 | `[Roadmap]` | Future roadmap items, feature evaluation |
 
 #### 3b. Translate to PT-BR
@@ -77,38 +77,38 @@ todoist update <task-id> --content "[Categoria] Título traduzido e acionável"
 
 Do not list tasks before organizing. Do not ask for confirmation on each one. Organize all at once and confirm at the end.
 
-### Step 5 — Save artefato
+### Step 5 — Save artifact
 
-Save um relatório curto em `workspace/daily-logs/[C] YYYY-MM-DD-todoist-review.md` com:
+Save a short report to `workspace/daily-logs/[C] YYYY-MM-DD-todoist-review.md` com:
 
 ```markdown
-# Triagem Todoist — YYYY-MM-DD
+# Todoist Triage — YYYY-MM-DD
 
-**Projeto:** Evolution
-**Tarefas revisadas:** {N}
-**Organizadas:** {M} (categorizadas, traduzidas ou reescritas)
-**Já OK:** {K} (sem alteração necessária)
+**Project:** Evolution
+**Tasks reviewed:** {N}
+**Organized:** {M} (categorized, translated, or rewritten)
+**Already OK:** {K} (no changes needed)
 
-## Tarefas Organizadas
+## Organized Tasks
 
-| Tarefa | Antes | Depois |
+| Task | Before | After |
 |--------|-------|--------|
 | ... | ... | ... |
 ```
 
 Create the directory `workspace/daily-logs/` if it does not exist.
 
-### Step 6 — Final report (curto)
+### Step 6 — Final report (short)
 
 When finished, present only:
 
 ```
-## Triagem Todoist — Concluído
+## Todoist Triage — Completed
 
-**Projeto:** Evolution
-**Tarefas revisadas:** {N}
-**Organizadas:** {M} (categorizadas, traduzidas ou reescritas)
-**Já OK:** {K} (sem alteração necessária)
+**Project:** Evolution
+**Tasks reviewed:** {N}
+**Organized:** {M} (categorized, translated, or rewritten)
+**Already OK:** {K} (no changes needed)
 ```
 
 If the user wants to see details of what changed, they ask.
@@ -117,11 +117,11 @@ If the user wants to see details of what changed, they ask.
 
 - **Default project is always `Evolution`** — do not move tasks to other projects
 - **Always translate to PT-BR** — no exceptions
-- **Do not modify already organized tasks** (que já têm `[Categoria]` e estão em PT-BR)
+- **Do not modify already organized tasks** (that already have `[Category]` and are in PT-BR)
 - **Do not complete or delete tasks** — only reorganize
 - **Do not create new tasks** — only edit existing ones
 - **Keep existing comments** — do not modify comments, only the title
-- **If unsure about the category**, use `[Operação]` as fallback
+- **If unsure about the category**, use `[Operations]` as fallback
 - **Execute first, report after** — no intermediate report
 
 

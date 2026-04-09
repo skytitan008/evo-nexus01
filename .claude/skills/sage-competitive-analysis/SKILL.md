@@ -11,55 +11,55 @@ Skill to analyze the competitive landscape of Evolution Foundation and identify 
 
 ## Workflow
 
-### Step 1 — Collect data internos
+### Step 1 — Collect internal data
 
-Buscar métricas atuais da Evolution:
-- Stars/forks dos repos GitHub (`/int-github-review`)
-- MRR e assinaturas Stripe (`/int-stripe`)
-- Tamanho da comunidade Discord
-- Número de instalações/instâncias (se disponível)
+Fetch current Evolution metrics:
+- Stars/forks from GitHub repos (`/int-github-review`)
+- MRR and Stripe subscriptions (`/int-stripe`)
+- Discord community size
+- Number of installations/instances (if available)
 
 ### Step 2 — Research competitors
 
-Usar WebSearch/WebFetch para pesquisar os principais concorrentes no espaço de:
+Use WebSearch/WebFetch to research the main competitors in the space of:
 - APIs de WhatsApp (Baileys, wa-automate, Venom, wppconnect)
 - CRMs com IA para WhatsApp (Kommo, Respond.io, Wati, MessageBird)
 - Plataformas de automação (ManyChat, Botpress, Landbot)
 
-Para cada concorrente, levantar:
-- Modelo (open source vs SaaS vs enterprise)
+For each competitor, gather:
+- Model (open source vs SaaS vs enterprise)
 - Pricing
-- Features principais
-- GitHub stars/forks (se open source)
-- Pontos fortes e fracos
+- Main features
+- GitHub stars/forks (if open source)
+- Strengths and weaknesses
 
 ### Step 3 — Map positioning
 
-Criar matriz de posicionamento:
+Create positioning matrix:
 
-| Dimensão | Evolution | Concorrente A | Concorrente B |
+| Dimension | Evolution | Concorrente A | Concorrente B |
 |----------|-----------|--------------|--------------|
-| Modelo | Open source + SaaS | SaaS only | Enterprise |
-| Preço | Freemium + planos | R$X/mês | R$X/mês |
+| Model | Open source + SaaS | SaaS only | Enterprise |
+| Price | Freemium + plans | R$X/mês | R$X/mês |
 | WhatsApp Unofficial | ✅ Baileys | ❌ | ❌ |
 | WhatsApp Cloud API | ✅ | ✅ | ✅ |
-| CRM integrado | ✅ Evo CRM | ❌ | ✅ |
-| Comunidade | ✅ Discord + open source | ❌ | ❌ |
+| Integrated CRM | ✅ Evo CRM | ❌ | ✅ |
+| Community | ✅ Discord + open source | ❌ | ❌ |
 | IA/Agentes | ✅ Evo AI | Parcial | ❌ |
 
 ### Step 4 — Identify opportunities
 
-- Gaps que nenhum concorrente cobre
-- Features onde a Evolution lidera
-- Ameaças (concorrentes crescendo rápido)
-- Moats (vantagens difíceis de copiar)
+- Gaps that no competitor covers
+- Features where Evolution leads
+- Threats (fast-growing competitors)
+- Moats (advantages hard to copy)
 
-### Step 5 — Save relatório
+### Step 5 — Save report
 
-Save em `workspace/strategy/analises/[C] YYYY-MM-DD-competitiva.md`
+Save to `workspace/strategy/analyses/[C] YYYY-MM-DD-competitive.md`
 
 ## Rules
-- Dados reais — pesquisar de verdade, não inventar
+- Real data — research properly, do not fabricate
 - Honesty about weaknesses — do not hide where the competition is better
 - Focus on actionable — every analysis should end with "what to do about it"
 - Update at most every 3 months (the market does not change every week)
