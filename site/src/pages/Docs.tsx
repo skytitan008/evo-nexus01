@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useLocation } from "wouter";
+import { marked } from "marked";
 import {
   BookOpen, ChevronRight, Search, FileText, Layout, Bot,
   Zap, Workflow, Plug, Globe, BookMarked, Menu, X, ArrowLeft,
@@ -31,53 +32,64 @@ interface DocsIndex {
   sections: DocSection[];
 }
 
-function renderMarkdown(md: string): string {
-  let html = md
-    // Images
-    .replace(/!\[([^\]]*)\]\(imgs\/([^)]+)\)/g, '![$1](/docs/imgs/$2)')
-    .replace(/!\[([^\]]*)\]\(\.\.\/imgs\/([^)]+)\)/g, '![$1](/docs/imgs/$2)')
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full my-4" />')
-    // Code blocks
-    .replace(/```(\w*)\n([\s\S]*?)```/g, (_m, lang, code) =>
-      `<pre class="bg-[#0d1117] border border-[#30363d] rounded-lg p-4 my-4 overflow-x-auto"><code class="text-sm font-mono text-[#e6edf3]">${code.replace(/</g, '&lt;').replace(/>/g, '&gt;').trim()}</code></pre>`
-    )
-    // Inline code
-    .replace(/`([^`]+)`/g, '<code class="bg-[#161b22] text-[#00FFA7] px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
-    // Tables
-    .replace(/^(\|.+\|)\n(\|[-| :]+\|)\n((?:\|.+\|\n?)+)/gm, (_m, header, _sep, body) => {
-      const ths = header.split('|').filter(Boolean).map((c: string) => `<th class="px-4 py-2 text-left text-sm font-semibold text-[#e6edf3] border-b border-[#30363d]">${c.trim()}</th>`).join('');
-      const rows = body.trim().split('\n').map((row: string) => {
-        const tds = row.split('|').filter(Boolean).map((c: string) => `<td class="px-4 py-2 text-sm text-[#8b949e] border-b border-[#21262d]">${c.trim()}</td>`).join('');
-        return `<tr class="hover:bg-[#161b22]">${tds}</tr>`;
-      }).join('');
-      return `<div class="overflow-x-auto my-4"><table class="w-full border-collapse"><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table></div>`;
-    })
-    // Headers
-    .replace(/^#### (.+)$/gm, '<h4 class="text-lg font-semibold text-[#e6edf3] mt-6 mb-2">$1</h4>')
-    .replace(/^### (.+)$/gm, '<h3 class="text-xl font-semibold text-[#e6edf3] mt-8 mb-3">$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-[#e6edf3] mt-10 mb-4 pb-2 border-b border-[#21262d]">$1</h2>')
-    .replace(/^# (.+)$/gm, '<h1 class="text-3xl font-bold text-white mt-6 mb-6">$1</h1>')
-    // Bold & italic
-    .replace(/\*\*([^*]+)\*\*/g, '<strong class="text-[#e6edf3] font-semibold">$1</strong>')
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-    // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-[#00FFA7] hover:underline" target="_blank" rel="noreferrer">$1</a>')
-    // Blockquotes
-    .replace(/^>\s*(.+)$/gm, '<blockquote class="border-l-4 border-[#00FFA7] pl-4 py-2 my-4 text-[#8b949e] bg-[#161b22] rounded-r">$1</blockquote>')
-    // Unordered lists
-    .replace(/^[-*]\s+(.+)$/gm, '<li class="ml-4 text-[#8b949e] list-disc">$1</li>')
-    // Ordered lists
-    .replace(/^\d+\.\s+(.+)$/gm, '<li class="ml-4 text-[#8b949e] list-decimal">$1</li>')
-    // Horizontal rules
-    .replace(/^---+$/gm, '<hr class="border-[#21262d] my-8" />')
-    // Paragraphs (lines not already tagged)
-    .replace(/^(?!<[a-z])((?!^\s*$).+)$/gm, '<p class="text-[#8b949e] leading-relaxed mb-4">$1</p>');
+// Configure marked with custom renderer for dark theme
+const renderer = new marked.Renderer();
 
-  // Wrap consecutive <li> in <ul>
-  html = html.replace(/((?:<li[^>]*>.*<\/li>\s*)+)/g, '<ul class="my-3 space-y-1">$1</ul>');
+renderer.heading = ({ text, depth }: { text: string; depth: number }) => {
+  const styles: Record<number, string> = {
+    1: 'text-3xl font-bold text-white mt-6 mb-6',
+    2: 'text-2xl font-bold text-[#e6edf3] mt-10 mb-4 pb-2 border-b border-[#21262d]',
+    3: 'text-xl font-semibold text-[#e6edf3] mt-8 mb-3',
+    4: 'text-lg font-semibold text-[#e6edf3] mt-6 mb-2',
+  };
+  return `<h${depth} class="${styles[depth] || ''}">${text}</h${depth}>`;
+};
 
-  return html;
-}
+renderer.code = ({ text, lang }: { text: string; lang?: string }) =>
+  `<pre class="bg-[#0d1117] border border-[#30363d] rounded-lg p-4 my-4 overflow-x-auto"><code class="text-sm font-mono text-[#e6edf3]">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;
+
+renderer.codespan = ({ text }: { text: string }) =>
+  `<code class="bg-[#161b22] text-[#00FFA7] px-1.5 py-0.5 rounded text-sm font-mono">${text}</code>`;
+
+renderer.link = ({ href, text }: { href: string; text: string }) =>
+  `<a href="${href}" class="text-[#00FFA7] hover:underline" target="_blank" rel="noreferrer">${text}</a>`;
+
+renderer.image = ({ href, text }: { href: string; text: string }) => {
+  const src = href.replace(/^(\.\.\/)?imgs\//, '/docs/imgs/');
+  return `<img src="${src}" alt="${text}" class="rounded-lg max-w-full my-4" />`;
+};
+
+renderer.blockquote = ({ text }: { text: string }) =>
+  `<blockquote class="border-l-4 border-[#00FFA7] pl-4 py-2 my-4 text-[#8b949e] bg-[#161b22] rounded-r">${text}</blockquote>`;
+
+renderer.table = ({ header, body }: { header: string; body: string }) =>
+  `<div class="overflow-x-auto my-4"><table class="w-full border-collapse">${header}${body}</table></div>`;
+
+renderer.tablerow = ({ text }: { text: string }) =>
+  `<tr class="hover:bg-[#161b22]">${text}</tr>`;
+
+renderer.tablecell = ({ text, header }: { text: string; header: boolean }) =>
+  header
+    ? `<th class="px-4 py-2 text-left text-sm font-semibold text-[#e6edf3] border-b border-[#30363d]">${text}</th>`
+    : `<td class="px-4 py-2 text-sm text-[#8b949e] border-b border-[#21262d]">${text}</td>`;
+
+renderer.list = ({ body, ordered }: { body: string; ordered: boolean }) =>
+  ordered
+    ? `<ol class="my-3 space-y-1 list-decimal ml-6 text-[#8b949e]">${body}</ol>`
+    : `<ul class="my-3 space-y-1 list-disc ml-6 text-[#8b949e]">${body}</ul>`;
+
+renderer.listitem = ({ text }: { text: string }) =>
+  `<li class="text-[#8b949e]">${text}</li>`;
+
+renderer.paragraph = ({ text }: { text: string }) =>
+  `<p class="text-[#8b949e] leading-relaxed mb-4">${text}</p>`;
+
+renderer.hr = () => `<hr class="border-[#21262d] my-8" />`;
+
+renderer.strong = ({ text }: { text: string }) =>
+  `<strong class="text-[#e6edf3] font-semibold">${text}</strong>`;
+
+marked.setOptions({ renderer, breaks: false, gfm: true });
 
 export default function Docs() {
   const [index, setIndex] = useState<DocsIndex | null>(null);
@@ -242,7 +254,7 @@ export default function Docs() {
           ) : (
             <article
               className="prose-invert max-w-none"
-              dangerouslySetInnerHTML={{ __html: renderMarkdown(content) }}
+              dangerouslySetInnerHTML={{ __html: marked.parse(content) as string }}
             />
           )}
         </div>

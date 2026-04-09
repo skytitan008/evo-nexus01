@@ -905,7 +905,15 @@ View the full audit log at **Audit Log** in the sidebar (requires `audit:view`).
 
 ## Installation
 
-### 1. Clone and Setup
+### 1. Quick Install (recommended)
+
+```bash
+npx @evoapi/open-claude
+```
+
+This downloads and runs the interactive setup wizard automatically.
+
+### Alternative: Manual Clone
 
 ```bash
 git clone https://github.com/EvolutionAPI/open-claude.git
@@ -1531,6 +1539,107 @@ Once you've completed the tour, you're ready to:
 ## Re-running Setup
 
 You can trigger the setup tour again anytime — just say "show me around" or "onboarding".
+
+
+---
+
+# Updating OpenClaude
+
+## Check your current version
+
+Your version is shown in the sidebar footer of the dashboard. You can also check it via API:
+
+```bash
+curl http://localhost:8080/api/version
+```
+
+Or directly from `pyproject.toml` at the workspace root:
+
+```bash
+grep '^version' pyproject.toml
+```
+
+## Update via Git (recommended)
+
+```bash
+cd /path/to/your/workspace
+git pull origin main
+```
+
+Then rebuild the frontend and restart the backend:
+
+```bash
+cd dashboard/frontend
+npm install
+npm run build
+
+# Restart the backend (or the full stack)
+cd ../backend
+# If running directly:
+kill $(lsof -ti :8080) 2>/dev/null
+python app.py &
+```
+
+## Update via Docker
+
+If you're running OpenClaude with Docker Compose:
+
+```bash
+cd /path/to/your/workspace
+git pull origin main
+docker compose build
+docker compose up -d
+```
+
+To rebuild without cache (useful if dependencies changed):
+
+```bash
+docker compose build --no-cache
+docker compose up -d
+```
+
+## Custom routines and skills are safe
+
+Your custom routines (`ADWs/scripts/`), skills (`.claude/skills/`), and workspace configuration files are **gitignored** and will not be overwritten by `git pull`. The same applies to:
+
+- `.env` files
+- `dashboard/data/` (database, secrets)
+- `config/workspace.yaml`
+- `memory/` directory contents
+- Session logs in `01 Daily Logs/`
+
+If you've modified a tracked file, `git pull` may show a merge conflict. In that case, stash your changes first:
+
+```bash
+git stash
+git pull origin main
+git stash pop
+```
+
+## Checking for updates programmatically
+
+The dashboard checks for updates automatically (cached for 1 hour). You can also call:
+
+```bash
+curl http://localhost:8080/api/version/check
+```
+
+Returns:
+
+```json
+{
+  "current": "0.3.2",
+  "latest": "0.4.0",
+  "update_available": true,
+  "release_url": "https://github.com/EvolutionAPI/open-claude/releases/tag/v0.4.0",
+  "release_notes": "..."
+}
+```
+
+## Changelog
+
+See all releases and changelogs on GitHub:
+https://github.com/EvolutionAPI/open-claude/releases
 
 
 ---
@@ -2751,63 +2860,55 @@ Google Calendar and Gmail are connected via MCP servers configured in Claude Cod
 
 ## Overview
 
-OpenClaude includes a lightweight licensing system that registers your instance with Evolution Foundation's server. This is primarily for telemetry — understanding how the open source project is used, where it's deployed, and which versions are active.
+OpenClaude includes a lightweight, privacy-first licensing system. On first setup, your instance registers once with Evolution Foundation's server. That's it — no heartbeats, no monitoring, no periodic pings.
 
 ## How It Works
 
 ### Registration
 
-On first setup (`make setup`), your instance is silently registered with Evolution Foundation's licensing server. This happens automatically in the background — you don't need to enter a license key or create an account.
+On first setup (`make setup`), your instance is silently registered with Evolution Foundation's licensing server. This happens once, automatically in the background — you don't need to enter a license key or create an account.
 
-The registration creates a unique `instance_id` for your installation. This ID is stored locally in your config and used for all subsequent communication with the licensing server.
+The registration creates a unique `instance_id` for your installation based on your machine's hardware fingerprint. This ID is stored locally in your database.
 
-### Heartbeat
-
-After registration, your instance sends a heartbeat to the licensing server every 5 minutes. The heartbeat confirms the instance is active and reports basic telemetry.
-
-The heartbeat runs as part of the scheduler process. If the scheduler is stopped, heartbeats stop — nothing breaks, the instance simply appears offline in telemetry.
-
-### What Data Is Collected
-
-Each heartbeat includes:
+### What Data Is Sent (Once)
 
 | Field | Description |
 |-------|-------------|
-| `instance_id` | Unique identifier for this installation |
-| `geo` | Approximate geographic location (country/region from IP) |
-| `version` | OpenClaude version running |
-| `uptime` | How long the instance has been running |
-
-No personal data, no API keys, no workspace content, no conversation data. The telemetry is limited to operational metadata.
+| `instance_id` | Unique identifier for this installation (SHA-256 hash of hostname + MAC) |
+| `email` | Admin email (from setup) |
+| `name` | Admin name (from setup) |
+| `version` | OpenClaude version |
+| `geo` | Approximate location (country/city from IP, at registration time) |
 
 ### What It Does NOT Do
 
-- **Does not block functionality.** If the licensing server is unreachable, everything keeps working. There are no feature gates, no expiration, no degraded mode.
-- **Does not collect workspace data.** Your files, conversations, agent memory, financial data, and integrations are never transmitted.
-- **Does not phone home for permissions.** The instance runs fully offline if needed — the heartbeat is informational only.
+- **No heartbeats.** After registration, the system never phones home again.
+- **No monitoring.** No uptime tracking, no usage telemetry, no periodic pings.
+- **No feature gates.** If the licensing server is unreachable, everything works. There are no limitations, no expiration, no degraded mode.
+- **No workspace data.** Your files, conversations, agent memory, financial data, and integrations are never transmitted.
+- **No kill switch.** The server cannot remotely disable your instance.
 
 ## Free Tier
 
 OpenClaude ships with a free tier that has no limitations. All agents, skills, routines, and dashboard features are available without paying anything.
 
-The licensing system exists to help Evolution Foundation understand adoption — how many instances are active, geographic distribution, version spread — which informs development priorities and community support.
+The registration exists solely to help Evolution Foundation understand adoption — how many instances exist and where — which informs development priorities.
 
 ## Licensing API
 
-The licensing server exposes an API that the `int-licensing` skill queries for telemetry data. This is used by the daily and weekly licensing routines to generate open source growth reports:
+The licensing server exposes an API that the `int-licensing` skill queries for aggregated telemetry data. This is used by the daily and weekly licensing routines to generate open source growth reports:
 
-- Active instances count
+- Total registered instances
 - Geographic distribution
 - Version adoption rates
-- Message volume trends
 
 These reports help track the health and growth of the open source ecosystem.
 
 ## Configuration
 
-The licensing configuration is stored in your workspace config and `.env` file. It's set up automatically during `make setup`. You don't need to configure anything manually.
+Licensing is configured automatically during `make setup`. You don't need to configure anything manually.
 
-If you need to check your licensing status, use the dashboard's Integrations page or run the licensing daily routine:
+To check your licensing status, use the dashboard's Integrations page or run:
 
 ```bash
 make licensing
