@@ -11,6 +11,7 @@ import {
   Camera,
   Users,
   Compass,
+  BookOpen,
   type LucideIcon,
 } from 'lucide-react'
 import { api } from '../lib/api'
@@ -105,6 +106,14 @@ const AGENT_META: Record<string, AgentMeta> = {
     glowColor: 'rgba(129,140,248,0.15)',
     command: '/sage',
     label: 'Strategy',
+  },
+  'oracle': {
+    icon: BookOpen,
+    color: '#F59E0B',
+    colorMuted: 'rgba(245,158,11,0.12)',
+    glowColor: 'rgba(245,158,11,0.15)',
+    command: '/oracle',
+    label: 'Knowledge',
   },
 }
 
