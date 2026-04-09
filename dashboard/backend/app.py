@@ -92,8 +92,8 @@ def auth_middleware():
     if path.startswith("/ws/"):
         return None
 
-    # Public API paths
-    if path in PUBLIC_PATHS:
+    # Public API paths (exact match or prefix match for docs)
+    if path in PUBLIC_PATHS or path.startswith("/api/docs"):
         return None
 
     # Setup redirect — if no users, only allow setup endpoints
@@ -121,6 +121,7 @@ from routes.scheduler import bp as scheduler_bp
 from routes.services import bp as services_bp
 from routes.auth_routes import bp as auth_bp
 from routes.systems import bp as systems_bp
+from routes.docs import bp as docs_bp
 
 app.register_blueprint(overview_bp)
 app.register_blueprint(reports_bp)
@@ -137,6 +138,7 @@ app.register_blueprint(scheduler_bp)
 app.register_blueprint(services_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(systems_bp)
+app.register_blueprint(docs_bp)
 
 # --------------- Terminal WebSocket ---------------
 from routes.terminal import bp as terminal_bp, init_websocket

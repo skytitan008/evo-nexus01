@@ -22,11 +22,23 @@ import Login from './pages/Login'
 import Users from './pages/Users'
 import Audit from './pages/Audit'
 import Roles from './pages/Roles'
+import Docs from './pages/Docs'
 
 function AppContent() {
   const location = useLocation()
   const isChat = location.pathname === '/chat'
+  const isDocs = location.pathname === '/docs' || location.pathname.startsWith('/docs/')
   const { user, loading, needsSetup, hasPermission } = useAuth()
+
+  // Docs are public — render without auth
+  if (isDocs) {
+    return (
+      <Routes>
+        <Route path="/docs" element={<Docs />} />
+        <Route path="/docs/*" element={<Docs />} />
+      </Routes>
+    )
+  }
 
   if (loading) {
     return (

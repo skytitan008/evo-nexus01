@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import {
   LayoutDashboard, FileText, Bot, Clock, Zap, Layout, Calendar,
   Brain, Plug, DollarSign, Settings, FolderOpen, MessageSquare,
-  Monitor, Users, ScrollText, LogOut, Menu, X, Shield,
+  Monitor, Users, ScrollText, LogOut, Menu, X, Shield, BookOpen,
 } from 'lucide-react'
 
 const navItems = [
@@ -22,6 +22,7 @@ const navItems = [
   { to: '/costs', label: 'Costs', icon: DollarSign, resource: 'costs' },
   { to: '/config', label: 'Config', icon: Settings, resource: 'config' },
   { to: '/files', label: 'Files', icon: FolderOpen, resource: 'files' },
+  { to: '/docs', label: 'Docs', icon: BookOpen, resource: null },
 ]
 
 const adminItems = [
