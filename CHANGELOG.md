@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.3] - 2026-04-09
+
+### Fixed
+- **Stale folder references in docs** — replaced legacy Obsidian-style paths (`01 Daily Logs/`, `02 Projects/`, `05 Financeiro/`, `09 Estrategia/`) with new `workspace/` structure (`workspace/daily-logs/`, `workspace/projects/`, `workspace/finance/`, `workspace/strategy/`) in `CLAUDE.md`, status command, creating-skills/routines/updating guides, ops-vendor-review skill, and `llms-full.txt`.
+
+### Changed
+- **`.gitignore`** — added `config/triggers.yaml` to gitignored configs.
+
 ## [0.11.2] - 2026-04-09
 
 ### Added

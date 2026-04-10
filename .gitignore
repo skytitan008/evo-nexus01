@@ -79,6 +79,7 @@ Thumbs.db
 CLAUDE.md
 config/workspace.yaml
 config/routines.yaml
+config/triggers.yaml
 
 # ── Claude Code session data ─────────────
 .claude/projects/

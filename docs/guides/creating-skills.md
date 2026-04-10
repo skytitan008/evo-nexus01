@@ -52,7 +52,7 @@ description: Generate a weekly team status report from Linear, GitHub, and meeti
 ## Output
 
 Generate an HTML report using the Evolution brand template.
-Save to `01 Daily Logs/` with filename `[C] Team Report YYYY-MM-DD.html`.
+Save to `workspace/daily-logs/` with filename `[C] Team Report YYYY-MM-DD.html`.
 
 ## Rules
 
@@ -114,7 +114,7 @@ Consolidate data from all domains into a single weekly summary.
 
 ## Output
 
-HTML report saved to `01 Daily Logs/`.
+HTML report saved to `workspace/daily-logs/`.
 ```
 
 3. Test it — just describe the task:

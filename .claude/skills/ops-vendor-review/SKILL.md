@@ -114,7 +114,7 @@ Se **Notion MCP** estiver conectado:
 
 Se o workflow de contratação for manual:
 - Gerar checklist de aprovação para compartilhar com Davidson e Samara (financeiro)
-- Documentar resultado da avaliação em arquivo local em `02 Projects/`
+- Documentar resultado da avaliação em arquivo local em `workspace/projects/`
 
 ## Dicas
 

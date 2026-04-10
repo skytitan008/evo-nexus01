@@ -61,7 +61,7 @@ Your custom routines (`ADWs/scripts/`), skills (`.claude/skills/`), and workspac
 - `dashboard/data/` (database, secrets)
 - `config/workspace.yaml`
 - `memory/` directory contents
-- Session logs in `01 Daily Logs/`
+- Session logs in `workspace/daily-logs/`
 
 If you've modified a tracked file, `git pull` may show a merge conflict. In that case, stash your changes first:
 

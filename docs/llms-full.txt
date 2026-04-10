@@ -2636,7 +2636,7 @@ make run R=competitor-check
 | Custom routine scripts | `ADWs/routines/custom/` |
 | Core routine scripts | `ADWs/routines/` |
 | Routine config | `config/routines.yaml` |
-| Generated reports | Varies by agent (e.g., `09 Estrategia/`, `05 Financeiro/`) |
+| Generated reports | Varies by agent (e.g., `workspace/strategy/`, `workspace/finance/`) |
 
 ## Testing
 
@@ -2721,7 +2721,7 @@ description: Generate a weekly team status report from Linear, GitHub, and meeti
 ## Output
 
 Generate an HTML report using the Evolution brand template.
-Save to `01 Daily Logs/` with filename `[C] Team Report YYYY-MM-DD.html`.
+Save to `workspace/daily-logs/` with filename `[C] Team Report YYYY-MM-DD.html`.
 
 ## Rules
 
@@ -2783,7 +2783,7 @@ Consolidate data from all domains into a single weekly summary.
 
 ## Output
 
-HTML report saved to `01 Daily Logs/`.
+HTML report saved to `workspace/daily-logs/`.
 ```
 
 3. Test it — just describe the task:
@@ -3148,7 +3148,7 @@ Your custom routines (`ADWs/scripts/`), skills (`.claude/skills/`), and workspac
 - `dashboard/data/` (database, secrets)
 - `config/workspace.yaml`
 - `memory/` directory contents
-- Session logs in `01 Daily Logs/`
+- Session logs in `workspace/daily-logs/`
 
 If you've modified a tracked file, `git pull` may show a merge conflict. In that case, stash your changes first:
 

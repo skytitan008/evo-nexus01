@@ -100,7 +100,7 @@ make run R=competitor-check
 | Custom routine scripts | `ADWs/routines/custom/` |
 | Core routine scripts | `ADWs/routines/` |
 | Routine config | `config/routines.yaml` |
-| Generated reports | Varies by agent (e.g., `09 Estrategia/`, `05 Financeiro/`) |
+| Generated reports | Varies by agent (e.g., `workspace/strategy/`, `workspace/finance/`) |
 
 ## Testing
 
